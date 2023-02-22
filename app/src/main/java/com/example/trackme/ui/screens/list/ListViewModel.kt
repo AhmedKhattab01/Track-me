@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.TaskList
 import com.example.domain.repo.ListRepository
+import com.maltaisn.icondialog.pack.IconPack
+import com.maltaisn.icondialog.pack.IconPackLoader
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,20 +15,27 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListViewModel @Inject constructor(private val listRepository: ListRepository) : ViewModel() {
+class ListViewModel @Inject constructor(
+    private val listRepository: ListRepository,
+    private val iconPack: IconPack,
+    private val loader: IconPackLoader
+) : ViewModel() {
 
     var isFavourite = false // Used in adding new list item to add it as favourite while created
     var color = -16738680
 
-    var list : Flow<List<TaskList>> = listRepository.getAllLists()
+    var list: Flow<List<TaskList>> = listRepository.getAllLists()
 
-    private val _filter :  MutableStateFlow<Int> = MutableStateFlow(0)
-    val filter :  StateFlow<Int> get() = _filter
+    private val _filter: MutableStateFlow<Int> = MutableStateFlow(0)
+    val filter: StateFlow<Int> get() = _filter
 
-    fun setFilter(value : Int) {
+    fun setFilter(value: Int) {
         _filter.value = value
     }
 
+    val icons = iconPack
+
+    val iconLoader = loader
     fun deleteAllLists() = viewModelScope.launch(Dispatchers.IO) {
         listRepository.deleteAllLists()
     }

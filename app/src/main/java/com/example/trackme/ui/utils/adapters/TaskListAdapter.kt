@@ -17,23 +17,6 @@ class TaskListAdapter(private val listViewModel: ListViewModel) :
         fun bind(item: TaskList) {
             binding.list = item
 
-            if (item.isFavourite) {
-                binding.btnFavourite.setImageResource(R.drawable.baseline_star_24)
-            }
-
-            binding.btnFavourite.setOnClickListener {
-                item.isFavourite = !item.isFavourite
-                listViewModel.updateList(item)
-                if (item.isFavourite) {
-                    binding.btnFavourite.setImageResource(R.drawable.baseline_star_24)
-                }
-                else {
-                    binding.btnFavourite.setImageResource(R.drawable.baseline_star_outline_24)
-                }
-            }
-
-            binding.vColor.setBackgroundColor(item.color)
-
             binding.executePendingBindings()
         }
     }

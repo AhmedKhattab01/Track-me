@@ -26,58 +26,87 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="16dp">
 
-                <View
-                    android:id="@+id/v_color"
-                    android:layout_width="25dp"
-                    android:layout_height="75dp"
-                    android:background="@color/black"
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/background_image"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_name"
+                    app:srcCompat="@drawable/baseline_star_outline_24" />
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginStart="16dp"
                     android:text="@{list.name}"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline"
-                    app:layout_constraintStart_toEndOf="@+id/v_color"
+                    app:layout_constraintStart_toEndOf="@+id/iv_icon"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Name" />
 
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="16dp"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
                     android:text="@{list.creationDate}"
-                    app:layout_constraintStart_toEndOf="@+id/v_color"
-                    app:layout_constraintTop_toTopOf="@+id/guideline"
-                    tools:text="date" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent=".50" />
-
-                <ImageButton
-                    android:id="@+id/btn_favourite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/white"
-                    android:minHeight="48dp"
+                    app:drawableStartCompat="@drawable/baseline_calendar_month_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/v_color"
-                    app:srcCompat="@drawable/baseline_star_outline_24" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider"
+                    tools:text="Jan 14, 2023" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView4"
+                    app:layout_constraintStart_toStartOf="@+id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50%"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:text="0 / 5"
+                    app:drawableStartCompat="@drawable/baseline_checklist_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
