@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.trackme.ui.screens.list.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_listAddFragment"
+            app:destination="@id/listAddFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_listFilterFragment"
+            app:destination="@id/listFilterFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/listAddFragment"
+        android:name="com.example.trackme.ui.screens.list.ListAddFragment"
+        android:label="fragment_list_add"
+        tools:layout="@layout/fragment_list_add" />
+    <dialog
+        android:id="@+id/listFilterFragment"
+        android:name="com.example.trackme.ui.screens.list.ListFilterFragment"
+        android:label="fragment_list_filter"
+        tools:layout="@layout/fragment_list_filter" />
+</navigation>

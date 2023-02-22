@@ -4,10 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "lists_table")
-data class List(
+data class TaskList(
     @PrimaryKey(autoGenerate = true)
-    val id : Int,
-    val name : String,
-    val count : Int,
-    val creationDate: String
+    val id: Int,
+    val name: String,
+    val count: Int,
+    val creationDate: String,
+    var isFavourite: Boolean,
+    var color: Int,
 )
