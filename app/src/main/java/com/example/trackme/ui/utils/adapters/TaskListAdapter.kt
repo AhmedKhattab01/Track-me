@@ -1,7 +1,9 @@
 package com.example.trackme.ui.utils.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.TaskList
@@ -16,7 +18,17 @@ class TaskListAdapter(private val listViewModel: ListViewModel) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TaskList) {
             binding.list = item
+            with(binding.ivIcon) {
+                setImageDrawable(
+                    listViewModel.iconsPack.getIconDrawable(
+                        item.iconId,
+                        listViewModel.drawableLoad
+                    )
+                )
 
+                setColorFilter(item.color)
+            }
+            binding.progressBar.progressTintList = ColorStateList.valueOf(item.color)
             binding.executePendingBindings()
         }
     }
@@ -33,5 +45,8 @@ class TaskListAdapter(private val listViewModel: ListViewModel) :
 
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener {
+            it.findNavController().navigate(R.id.action_listFragment_to_taskFragment)
+        }
     }
 }

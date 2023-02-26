@@ -1,8 +1,6 @@
 package com.example.trackme.ui.screens.list
 
-import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,13 +19,10 @@ import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.data.Icon
 import com.maltaisn.icondialog.pack.IconPack
-import com.maltaisn.icondialog.pack.IconPackLoader
-import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
-import dagger.hilt.EntryPoint
-import javax.inject.Inject
 
 
-class ListAddFragment : BottomSheetDialogFragment(), ColorPickerDialogListener,IconDialog.Callback {
+class ListAddFragment : BottomSheetDialogFragment(), ColorPickerDialogListener,
+    IconDialog.Callback {
     private var _binding: FragmentListAddBinding? = null
     private val binding get() = _binding!!
 
@@ -41,12 +36,11 @@ class ListAddFragment : BottomSheetDialogFragment(), ColorPickerDialogListener,I
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentListAddBinding.inflate(inflater, container, false)
-
-        listViewModel.icons.loadDrawables(listViewModel.iconLoader.drawableLoader)
-
+        listViewModel.iconsPack.loadDrawables(listViewModel.drawableLoad)
         setBtnColorFilter()
+
+        val iconDialog = IconDialog.newInstance(IconDialogSettings())
 
         with(binding) {
             // Enable save button when text is not equal null or empty
@@ -55,20 +49,20 @@ class ListAddFragment : BottomSheetDialogFragment(), ColorPickerDialogListener,I
             }
 
             btnIcon.setOnClickListener {
-                val iconDialog =IconDialog.newInstance(IconDialogSettings())
-                iconDialog.show(childFragmentManager,"MAA")
+                iconDialog.show(childFragmentManager, "Faa")
             }
-            listViewModel.icons.getIconDrawable(333,listViewModel.iconLoader.drawableLoader)
+            //listViewModel.icons.getIconDrawable(333,listViewModel.drawableLoad)
+
             // insert item on save button clicked
             btnSave.setOnClickListener {
                 listViewModel.insertList(
                     TaskList(
                         0,
                         binding.etList.text.toString().replaceFirstChar { it.titlecase() },
-                        0,
                         currentDate,
-                        listViewModel.isFavourite,
-                        listViewModel.color
+                        currentDate,
+                        color = listViewModel.color,
+                        iconId = listViewModel.iconId,
                     )
                 )
                 findNavController().popBackStack()
@@ -76,13 +70,13 @@ class ListAddFragment : BottomSheetDialogFragment(), ColorPickerDialogListener,I
 
             // Show color picker dialog
             btnColor.setOnClickListener {
-                val colorPickerDialog = ColorPickerDialog
+                ColorPickerDialog
                     .newBuilder()
                     .setColor(listViewModel.color)
-                    .create()
-
-                colorPickerDialog.setColorPickerDialogListener(this@ListAddFragment)
-                colorPickerDialog.show(requireActivity().supportFragmentManager, "Foo")
+                    .create().also {
+                        it.setColorPickerDialogListener(this@ListAddFragment)
+                        it.show(requireActivity().supportFragmentManager, "Foo")
+                    }
             }
         }
         return binding.root
@@ -109,9 +103,10 @@ class ListAddFragment : BottomSheetDialogFragment(), ColorPickerDialogListener,I
     }
 
     override val iconDialogIconPack: IconPack
-        get() = listViewModel.icons
+        get() = listViewModel.iconsPack
 
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
         binding.btnIcon.setImageDrawable(icons[0].drawable)
+        listViewModel.iconId = icons[0].id
     }
 }

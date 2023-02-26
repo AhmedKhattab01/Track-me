@@ -9,7 +9,7 @@ data class Task(
     val id: Int,
     val title: String,
     val description: String,
-    val isCompleted: Boolean,
+    var isCompleted: Boolean,
     val creationDate: String,
     val expirationDate: String,
     val listType: String

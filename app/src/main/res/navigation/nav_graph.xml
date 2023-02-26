@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_listFragment_to_listFilterFragment"
             app:destination="@id/listFilterFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
     </fragment>
     <dialog
         android:id="@+id/listAddFragment"
@@ -27,4 +30,18 @@
         android:name="com.example.trackme.ui.screens.list.ListFilterFragment"
         android:label="fragment_list_filter"
         tools:layout="@layout/fragment_list_filter" />
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.example.trackme.ui.screens.task.TaskFragment"
+        android:label="fragment_task"
+        tools:layout="@layout/fragment_task" >
+        <action
+            android:id="@+id/action_taskFragment_to_taskAddFragment"
+            app:destination="@id/taskAddFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/taskAddFragment"
+        android:name="com.example.trackme.ui.screens.task.TaskAddFragment"
+        android:label="fragment_task_add"
+        tools:layout="@layout/fragment_task_add" />
 </navigation>

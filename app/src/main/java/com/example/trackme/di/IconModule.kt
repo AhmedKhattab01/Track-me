@@ -1,6 +1,7 @@
 package com.example.trackme.di
 
 import android.content.Context
+import com.maltaisn.icondialog.pack.IconDrawableLoader
 import com.maltaisn.icondialog.pack.IconPack
 import com.maltaisn.icondialog.pack.IconPackLoader
 import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
@@ -24,5 +25,11 @@ object IconModule {
     @Singleton
     fun provideIconPack(loader: IconPackLoader) : IconPack {
         return createDefaultIconPack(loader)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDrawableLoader(loader: IconPackLoader) : IconDrawableLoader {
+        return loader.drawableLoader
     }
 }

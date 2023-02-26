@@ -7,9 +7,4 @@
         android:icon="@drawable/baseline_sort_24"
         android:title="Sort"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_list_favourite"
-        android:icon="@drawable/baseline_star_border_24"
-        android:title="Favourite"
-        app:showAsAction="ifRoom" />
 </menu>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".ui.screens.list.ListAddFragment">
+    tools:context=".ui.screens.task.TaskAddFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -18,11 +18,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_list"
+            android:id="@+id/et_task"
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content"
-            android:hint="New list" />
+            android:hint="New Task" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -38,20 +38,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <ImageButton
-        android:id="@+id/btn_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/baseline_tag_faces_24"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-    <ImageButton
         android:id="@+id/btn_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/baseline_color_lens_24"
-        app:layout_constraintStart_toEndOf="@+id/btn_icon"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

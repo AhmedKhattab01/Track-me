@@ -8,8 +8,10 @@ data class TaskList(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    val count: Int,
     val creationDate: String,
-    var isFavourite: Boolean,
+    val expireDate: String,
+    val completedTasks : Int = 0,
+    val totalTasks : Int = 0,
     var color: Int,
+    var iconId : Int
 )

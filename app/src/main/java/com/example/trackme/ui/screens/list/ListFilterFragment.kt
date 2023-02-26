@@ -33,7 +33,6 @@ class ListFilterFragment : BottomSheetDialogFragment() {
             R.id.rb_default to 0,
             R.id.rb_ascending to 1,
             R.id.rb_descending to 2,
-            R.id.rb_favourite to 3
         )
 
         // Set the selected radio button based on the current filter value

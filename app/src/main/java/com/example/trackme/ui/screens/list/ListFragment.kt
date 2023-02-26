@@ -43,7 +43,6 @@ class ListFragment : Fragment() {
         bottomAppBar.replaceMenu(R.menu.menu_list)
         bottomAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
-//                R.id.action_list_favourite -> listViewModel.setFavouriteOnly(!listViewModel.showFavouriteOnly.value)
                 R.id.action_list_sort -> findNavController().navigate(R.id.action_listFragment_to_listFilterFragment)
             }
 
@@ -54,9 +53,8 @@ class ListFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             listViewModel.list.combine(listViewModel.filter) { list, filter ->
                 when (filter) {
-                    1 -> list.sortedByDescending { it.name }.reversed()
-                    2 -> list.sortedByDescending { it.name }
-                    3 -> list.sortedBy { !it.isFavourite }
+                    1 -> list.sortedByDescending { it.name }.reversed()// Ascending
+                    2 -> list.sortedByDescending { it.name }// Descending
                     else -> list
                 }
             }.collect { filteredList ->
@@ -68,7 +66,6 @@ class ListFragment : Fragment() {
 
         // launch bottom sheet on fab clicked
         fab.setOnClickListener {
-            listViewModel.isFavourite = false
             findNavController().navigate(R.id.action_listFragment_to_listAddFragment)
         }
 
