@@ -7,6 +7,14 @@ buildscript {
         lifecycle_version = "2.5.1"
         navigation_version = "2.5.3"
     }
+
+    repositories {
+        google()
+    }
+
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
+    }
 }
 
 plugins {

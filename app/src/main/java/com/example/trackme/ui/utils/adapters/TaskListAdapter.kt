@@ -7,8 +7,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.TaskList
-import com.example.trackme.R
 import com.example.trackme.databinding.ItemRvListBinding
+import com.example.trackme.ui.screens.list.ListFragmentDirections
 import com.example.trackme.ui.screens.list.ListViewModel
 import com.example.trackme.ui.utils.differs.ListDiffItemCallBack
 
@@ -46,7 +46,7 @@ class TaskListAdapter(private val listViewModel: ListViewModel) :
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            it.findNavController().navigate(R.id.action_listFragment_to_taskFragment)
+            it.findNavController().navigate(ListFragmentDirections.actionListFragmentToTaskFragment(getItem(position)))
         }
     }
 }

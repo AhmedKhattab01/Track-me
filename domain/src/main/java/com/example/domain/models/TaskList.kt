@@ -1,8 +1,13 @@
 package com.example.domain.models
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.versionedparcelable.VersionedParcelize
+import kotlinx.android.parcel.Parcelize
 
+
+@Parcelize
 @Entity(tableName = "lists_table")
 data class TaskList(
     @PrimaryKey(autoGenerate = true)
@@ -14,4 +19,4 @@ data class TaskList(
     val totalTasks : Int = 0,
     var color: Int,
     var iconId : Int
-)
+) : Parcelable

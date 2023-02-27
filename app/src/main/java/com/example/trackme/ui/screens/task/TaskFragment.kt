@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.trackme.R
 import com.example.trackme.databinding.FragmentTaskBinding
 import com.example.trackme.ui.utils.adapters.TaskAdapter
@@ -21,6 +22,8 @@ class TaskFragment : Fragment() {
 
     private val taskViewModel: TaskViewModel by activityViewModels()
 
+    private val args by navArgs<TaskFragmentArgs>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +35,8 @@ class TaskFragment : Fragment() {
 
         val adapter = TaskAdapter(taskViewModel)
         val completedAdapter = TaskAdapter(taskViewModel)
+
+        binding.include.list = args.taskList
 
         with(binding) {
             // Initialize recyclerview adapters
