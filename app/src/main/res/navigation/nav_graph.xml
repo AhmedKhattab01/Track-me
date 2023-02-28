@@ -41,7 +41,11 @@
         tools:layout="@layout/fragment_task" >
         <action
             android:id="@+id/action_taskFragment_to_taskAddFragment"
-            app:destination="@id/taskAddFragment" />
+            app:destination="@id/taskAddFragment">
+            <argument
+                android:name="taskList"
+                app:argType="com.example.domain.models.TaskList" />
+        </action>
         <argument
             android:name="taskList"
             app:argType="com.example.domain.models.TaskList" />
@@ -50,5 +54,9 @@
         android:id="@+id/taskAddFragment"
         android:name="com.example.trackme.ui.screens.task.TaskAddFragment"
         android:label="fragment_task_add"
-        tools:layout="@layout/fragment_task_add" />
+        tools:layout="@layout/fragment_task_add" >
+        <argument
+            android:name="taskList"
+            app:argType="com.example.domain.models.TaskList" />
+    </dialog>
 </navigation>

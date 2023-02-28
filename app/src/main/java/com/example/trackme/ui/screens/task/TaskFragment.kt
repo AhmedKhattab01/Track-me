@@ -63,19 +63,19 @@ class TaskFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             taskViewModel.tasks.collect { task ->
-                adapter.submitList(task.filter { !it.isCompleted })
+                adapter.submitList(task.filter { !it.isCompleted }.filter { it.listType == args.taskList.name })
                 if (task.none { it.isCompleted }) {
                     binding.btnCompleted.visibility = View.GONE
                 }
                 else {
-                    completedAdapter.submitList(task.filter { it.isCompleted })
+                    completedAdapter.submitList(task.filter { it.isCompleted }.filter { it.listType == args.taskList.name })
                     binding.btnCompleted.visibility = View.VISIBLE
                 }
             }
         }
 
         fab.setOnClickListener {
-            findNavController().navigate(R.id.action_taskFragment_to_taskAddFragment)
+            findNavController().navigate(TaskFragmentDirections.actionTaskFragmentToTaskAddFragment(args.taskList))
         }
 
         // Inflate the layout for this fragment

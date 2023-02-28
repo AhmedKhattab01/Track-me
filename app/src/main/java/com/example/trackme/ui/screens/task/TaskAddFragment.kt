@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.domain.models.Task
 import com.example.trackme.R
 import com.example.trackme.databinding.FragmentTaskAddBinding
@@ -19,6 +21,7 @@ class TaskAddFragment : BottomSheetDialogFragment() {
 
     private val taskViewModel: TaskViewModel by activityViewModels()
 
+    private val args by navArgs<TaskAddFragmentArgs>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
@@ -44,7 +47,7 @@ class TaskAddFragment : BottomSheetDialogFragment() {
                     false,
                     "daw",
                     "dawda",
-                    "dawda"
+                    args.taskList.name
                 )
             )
             findNavController().popBackStack()
