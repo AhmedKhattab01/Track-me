@@ -20,8 +20,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+
+//        Places.initialize(this,"AIzaSyDolYK9la0uJgVjB5Cmq42rGPofZiVZkgM")
+//
+//        val x = binding.button as AutocompleteSupportFragment
+//
+//        x.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+//
+//        x.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+//            override fun onError(p0: Status) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onPlaceSelected(p0: Place) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
 
         setSupportActionBar(binding.toolbar)
 

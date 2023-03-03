@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.trackme.ui.screens.list.ListFragment"
+        android:name="com.example.trackme.ui.screens.todo.tasks_lists.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -26,17 +26,17 @@
     </fragment>
     <dialog
         android:id="@+id/listAddFragment"
-        android:name="com.example.trackme.ui.screens.list.ListAddFragment"
+        android:name="com.example.trackme.ui.screens.todo.tasks_lists.ListAddFragment"
         android:label="fragment_list_add"
         tools:layout="@layout/fragment_list_add" />
     <dialog
         android:id="@+id/listFilterFragment"
-        android:name="com.example.trackme.ui.screens.list.ListFilterFragment"
+        android:name="com.example.trackme.ui.screens.todo.SortingFragment"
         android:label="fragment_list_filter"
-        tools:layout="@layout/fragment_list_filter" />
+        tools:layout="@layout/fragment_sorting" />
     <fragment
         android:id="@+id/taskFragment"
-        android:name="com.example.trackme.ui.screens.task.TaskFragment"
+        android:name="com.example.trackme.ui.screens.todo.task.TaskFragment"
         android:label="fragment_task"
         tools:layout="@layout/fragment_task" >
         <action
@@ -49,14 +49,33 @@
         <argument
             android:name="taskList"
             app:argType="com.example.domain.models.TaskList" />
+        <action
+            android:id="@+id/action_taskFragment_to_listFilterFragment"
+            app:destination="@id/listFilterFragment" />
+        <action
+            android:id="@+id/action_taskFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment">
+            <argument
+                android:name="taskList"
+                app:argType="com.example.domain.models.TaskList" />
+        </action>
     </fragment>
     <dialog
         android:id="@+id/taskAddFragment"
-        android:name="com.example.trackme.ui.screens.task.TaskAddFragment"
+        android:name="com.example.trackme.ui.screens.todo.task.TaskAddFragment"
         android:label="fragment_task_add"
         tools:layout="@layout/fragment_task_add" >
         <argument
             android:name="taskList"
             app:argType="com.example.domain.models.TaskList" />
     </dialog>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.trackme.ui.screens.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <argument
+            android:name="taskList"
+            app:argType="com.example.domain.models.TaskList" />
+    </fragment>
 </navigation>

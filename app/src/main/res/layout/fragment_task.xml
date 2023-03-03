@@ -13,42 +13,74 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp">
+        android:layout_margin="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            tools:context=".ui.screens.task.TaskFragment">
+            tools:context=".ui.screens.todo.task.TaskFragment">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:text="@{taskList.creationDate}"
+                app:layout_constraintStart_toStartOf="@+id/tv_list_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_list_name"
+                tools:text="22 aug 2023" />
+
+            <TextView
+                android:id="@+id/tv_list_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{taskList.name}"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mapView"
+                tools:text="List name" />
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:background="@drawable/background_image"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_list_name"
+                app:srcCompat="@drawable/baseline_star_outline_24" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf="@+id/iv_icon" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:drawableStart="@drawable/baseline_calendar_month_24"
                 android:drawablePadding="8dp"
                 android:gravity="center"
                 android:text="Tasks"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/rv_tasks"
-                app:layout_constraintTop_toBottomOf="@+id/include" />
+                app:layout_constraintStart_toStartOf="@+id/tv_list_name"
+                app:layout_constraintTop_toBottomOf="@+id/divider3"
+                app:drawableStartCompat="@drawable/baseline_calendar_month_24" />
 
-            <include
-                android:id="@+id/include"
-                layout="@layout/item_rv_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_tasks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
@@ -57,35 +89,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4"
                 tools:itemCount="2"
-                tools:listitem="@layout/item_rv_task" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_completed"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableEnd="@drawable/baseline_star_border_24"
-                android:paddingVertical="8dp"
-                android:text="Completed ()"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
-                app:cornerRadius="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_completed_tasks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_completed"
-                tools:itemCount="3"
                 tools:listitem="@layout/item_rv_task" />
 
             <View
@@ -97,6 +100,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_tasks" />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

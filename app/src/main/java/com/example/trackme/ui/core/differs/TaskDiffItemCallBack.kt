@@ -1,4 +1,4 @@
-package com.example.trackme.ui.utils.differs
+package com.example.trackme.ui.core.differs
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.domain.models.Task

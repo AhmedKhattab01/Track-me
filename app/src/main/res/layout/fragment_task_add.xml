@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".ui.screens.task.TaskAddFragment">
+    tools:context=".ui.screens.todo.task.TaskAddFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"

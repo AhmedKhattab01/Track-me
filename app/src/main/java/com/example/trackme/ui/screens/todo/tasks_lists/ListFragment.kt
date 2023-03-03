@@ -1,4 +1,4 @@
-package com.example.trackme.ui.screens.list
+package com.example.trackme.ui.screens.todo.tasks_lists
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackme.R
 import com.example.trackme.databinding.FragmentListBinding
-import com.example.trackme.ui.utils.adapters.TaskListAdapter
+import com.example.trackme.ui.core.adapters.TaskListAdapter
+import com.example.trackme.ui.screens.todo.task.TaskViewModel
+import com.example.trackme.ui.shared_viewmodels.IconViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +25,8 @@ class ListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val listViewModel: ListViewModel by activityViewModels()
+    private val taskViewModel: TaskViewModel by activityViewModels()
+    private val iconViewModel : IconViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +36,7 @@ class ListFragment : Fragment() {
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
         // Create adapter
-        val adapter = TaskListAdapter(listViewModel)
+        val adapter = TaskListAdapter(listViewModel, iconViewModel)
         binding.rvLists.adapter = adapter
 
         // Initialize activity views
@@ -45,21 +49,20 @@ class ListFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_list_sort -> findNavController().navigate(R.id.action_listFragment_to_listFilterFragment)
             }
-
-            return@setOnMenuItemClickListener true
+            true
         }
 
         // collect list items
         lifecycleScope.launchWhenCreated {
-            listViewModel.list.combine(listViewModel.filter) { list, filter ->
+            combine(listViewModel.list, listViewModel.currentFilter) { list, filter ->
                 when (filter) {
-                    1 -> list.sortedByDescending { it.name }.reversed()// Ascending
-                    2 -> list.sortedByDescending { it.name }// Descending
+                    1 -> list.sortedBy { it.name } // Ascending
+                    2 -> list.sortedByDescending { it.name } // Descending
                     else -> list
                 }
             }.collect { filteredList ->
                 adapter.submitList(filteredList)
-                setVisibility(filteredList.isEmpty())
+                binding.taskList = filteredList
             }
         }
 
@@ -83,6 +86,7 @@ class ListFragment : Fragment() {
                 val item = adapter.currentList[viewHolder.adapterPosition]
 
                 listViewModel.deleteList(item)
+                taskViewModel.deleteListTasks(item.name)
 
                 Snackbar.make(binding.root, "Successfully Deleted", Snackbar.LENGTH_LONG)
                     .setAction("Undo") { listViewModel.insertList(item) }
@@ -97,12 +101,5 @@ class ListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    private fun setVisibility(isEmpty :Boolean) {
-        val visibility = if (isEmpty) View.VISIBLE else View.GONE
-        binding.imageView.visibility = visibility
-        binding.textView.visibility = visibility
-        binding.textView2.visibility = visibility
     }
 }
