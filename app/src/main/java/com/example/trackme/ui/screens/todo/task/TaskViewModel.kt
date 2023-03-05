@@ -39,4 +39,12 @@ class TaskViewModel @Inject constructor(private val taskRepository: TaskReposito
     fun deleteListTasks(listType: String) = viewModelScope.launch(Dispatchers.IO) {
         taskRepository.deleteListTasks(listType)
     }
+
+    fun sortTasks(tasks: List<Task>): List<Task> {
+        return when (currentFilter.value) {
+            1 -> tasks.sortedBy { it.title } // Ascending
+            2 -> tasks.sortedByDescending { it.title } // Descending
+            else -> tasks
+        }
+    }
 }

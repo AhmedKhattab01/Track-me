@@ -53,8 +53,8 @@ class TaskAddFragment : BottomSheetDialogFragment() {
             )
 
             args.taskList.totalTasks += 1
-
             taskListViewModel.updateList(args.taskList)
+
             findNavController().popBackStack()
         }
 

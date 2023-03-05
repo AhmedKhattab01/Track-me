@@ -35,13 +35,13 @@ class ListFragment : Fragment() {
 
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
-        // Create adapter
-        val adapter = TaskListAdapter(listViewModel, iconViewModel)
-        binding.rvLists.adapter = adapter
-
         // Initialize activity views
         val bottomAppBar = requireActivity().findViewById<BottomAppBar>(R.id.bottomAppBar)
         val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab)
+
+        // Create adapter
+        val adapter = TaskListAdapter(listViewModel, iconViewModel)
+        binding.rvLists.adapter = adapter
 
         // Replace current menu with this fragment menu
         bottomAppBar.replaceMenu(R.menu.menu_list)
@@ -54,18 +54,13 @@ class ListFragment : Fragment() {
 
         // collect list items
         lifecycleScope.launchWhenCreated {
-            combine(listViewModel.list, listViewModel.currentFilter) { list, filter ->
-                when (filter) {
-                    1 -> list.sortedBy { it.name } // Ascending
-                    2 -> list.sortedByDescending { it.name } // Descending
-                    else -> list
-                }
+            combine(listViewModel.list, listViewModel.currentFilter) { list, _ ->
+                listViewModel.sortTasks(list)
             }.collect { filteredList ->
                 adapter.submitList(filteredList)
                 binding.taskList = filteredList
             }
         }
-
 
         // launch bottom sheet on fab clicked
         fab.setOnClickListener {

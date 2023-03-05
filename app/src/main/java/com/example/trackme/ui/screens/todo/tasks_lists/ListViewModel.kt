@@ -2,6 +2,7 @@ package com.example.trackme.ui.screens.todo.tasks_lists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.models.Task
 import com.example.domain.models.TaskList
 import com.example.domain.repo.ListRepository
 import com.example.trackme.ui.core.utils.FilterUtils
@@ -35,6 +36,14 @@ class ListViewModel @Inject constructor(private val listRepository: ListReposito
     fun updateList(taskList: TaskList) {
         viewModelScope.launch(Dispatchers.IO) {
             listRepository.updateList(taskList)
+        }
+    }
+
+    fun sortTasks(tasks: List<TaskList>): List<TaskList> {
+        return when (currentFilter.value) {
+            1 -> tasks.sortedBy { it.name } // Ascending
+            2 -> tasks.sortedByDescending { it.name } // Descending
+            else -> tasks
         }
     }
 }

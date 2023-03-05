@@ -40,8 +40,8 @@ class MapsFragment : Fragment() {
             }
             else {
                 currentLocation.lastLocation.addOnSuccessListener { location ->
-                    val latLng = LatLng(location.latitude, location.longitude)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f))
+                    mLatLng = LatLng(location.latitude, location.longitude)
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15.0f))
                 }
             }
         }
@@ -49,6 +49,7 @@ class MapsFragment : Fragment() {
         // Add marker on map click and clear existing markers
         map.setOnMapClickListener { latLng ->
             mLatLng = latLng
+
             map.clear()
             map.addMarker(MarkerOptions().position(latLng))
 
@@ -62,6 +63,7 @@ class MapsFragment : Fragment() {
             isMyLocationButtonEnabled = true
             isZoomControlsEnabled = true
         }
+
         map.isMyLocationEnabled = true
 
         // Move camera to current location on My Location button click
@@ -85,6 +87,8 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val bottomAppBar = requireActivity().requireViewById<BottomAppBar>(R.id.bottomAppBar)
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
@@ -94,7 +98,6 @@ class MapsFragment : Fragment() {
         fab = requireActivity().requireViewById<FloatingActionButton>(R.id.fab)
         fab.hide()
 
-        val bottomAppBar = requireActivity().requireViewById<BottomAppBar>(R.id.bottomAppBar)
         bottomAppBar.replaceMenu(R.menu.menu_map)
         bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
