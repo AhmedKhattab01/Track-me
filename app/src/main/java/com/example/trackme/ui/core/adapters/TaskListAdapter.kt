@@ -18,7 +18,6 @@ class TaskListAdapter(private val listViewModel: ListViewModel, private val icon
     inner class TaskListViewHolder(private val binding: ItemRvListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TaskList) {
-            binding.list = item
             with(binding.ivIcon) {
                 setImageDrawable(
                     iconViewModel.iconPack.getIconDrawable(
@@ -30,7 +29,6 @@ class TaskListAdapter(private val listViewModel: ListViewModel, private val icon
                 setColorFilter(item.color)
             }
             binding.progressBar.progressTintList = ColorStateList.valueOf(item.color)
-            binding.executePendingBindings()
         }
     }
 

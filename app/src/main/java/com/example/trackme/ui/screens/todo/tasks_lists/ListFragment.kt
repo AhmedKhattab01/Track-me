@@ -58,7 +58,6 @@ class ListFragment : Fragment() {
                 listViewModel.sortTasks(list)
             }.collect { filteredList ->
                 adapter.submitList(filteredList)
-                binding.taskList = filteredList
             }
         }
 

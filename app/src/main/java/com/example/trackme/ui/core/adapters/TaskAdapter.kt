@@ -23,7 +23,6 @@ class TaskAdapter(
     inner class TaskViewHolder(private val binding: ItemRvTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task) {
-            binding.task = item
 
             with(binding) {
                 checkBox.setOnCheckedChangeListener { _, b ->

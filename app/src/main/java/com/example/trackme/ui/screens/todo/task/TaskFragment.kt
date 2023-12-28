@@ -56,8 +56,6 @@ class TaskFragment : Fragment() {
         val adapter = TaskAdapter(taskViewModel, listViewModel, args.taskList)
         binding.rvTasks.adapter = adapter
 
-        binding.taskList = args.taskList
-
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
 
