@@ -31,7 +31,7 @@
             android:value="AIzaSyDolYK9la0uJgVjB5Cmq42rGPofZiVZkgM" />
 
         <activity
-            android:name=".ui.screens.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.common_ui.Utils.toast
+import com.example.trackme.R
 import com.example.trackme.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,7 +27,6 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         handleLoginBtnClick()
-
 
         // Create google sign in options
 //        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -66,21 +67,11 @@ class LoginFragment : Fragment() {
                 lifecycleScope.launch {
                     viewModel.tryLogin(email, password)
 
-                    Toast.makeText(
-                        requireContext(),
-                        "login success ${viewModel.loginResult.value}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
                     if (viewModel.loginResult.value?.user != null) {
-                        Toast.makeText(
-                            requireContext(),
-                            "login success ${viewModel.loginResult.value}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    } else {
-                        Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    }
+                    else {
+                        toast(viewModel.handleSignInWithEmailAndPasswordException())
                     }
                 }
             }

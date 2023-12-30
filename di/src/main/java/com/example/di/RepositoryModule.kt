@@ -1,12 +1,12 @@
 package com.example.di
 
-import com.example.data.local.dao.ListDao
 import com.example.data.local.dao.TaskDao
+import com.example.data.local.dao.SubTaskDao
 import com.example.data.repo.AuthRepoImpl
-import com.example.data.repo.ListRepoImpl
+import com.example.data.repo.TasksRepoImpl
 import com.example.data.repo.TaskRepoImpl
 import com.example.domain.repo.AuthRepository
-import com.example.domain.repo.ListRepository
+import com.example.domain.repo.TasksRepository
 import com.example.domain.repo.TaskRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
@@ -20,14 +20,14 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideTaskRepo(taskDao: TaskDao): TaskRepository {
-        return TaskRepoImpl(taskDao)
+    fun provideTaskRepo(subTaskDao: SubTaskDao): TaskRepository {
+        return TaskRepoImpl(subTaskDao)
     }
 
     @Provides
     @Singleton
-    fun provideListRepo(listDao: ListDao): ListRepository {
-        return ListRepoImpl(listDao)
+    fun provideListRepo(taskDao: TaskDao): TasksRepository {
+        return TasksRepoImpl(taskDao)
     }
 
     @Provides

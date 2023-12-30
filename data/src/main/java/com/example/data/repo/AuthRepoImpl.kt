@@ -17,11 +17,9 @@ class AuthRepoImpl(private val firebaseAuth: FirebaseAuth) : AuthRepository {
         return withContext(Dispatchers.IO) {
             try {
                 val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-                val uid = result.user?.uid!!
-
                 TaskResult.Success(result)
             } catch (e : Exception) {
-                TaskResult.Failure(e.message,-1)
+                TaskResult.Failure(e.message,-1,e)
             }
         }
     }

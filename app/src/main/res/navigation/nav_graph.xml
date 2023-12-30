@@ -3,110 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.example.trackme.ui.screens.todo.tasks_lists.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
-        <action
-            android:id="@+id/action_listFragment_to_listAddFragment"
-            app:destination="@id/listAddFragment" />
-        <action
-            android:id="@+id/action_listFragment_to_listFilterFragment"
-            app:destination="@id/listFilterFragment" />
-        <action
-            android:id="@+id/action_listFragment_to_taskFragment"
-            app:destination="@id/taskFragment">
-            <argument
-                android:name="taskList"
-                app:argType="com.example.domain.models.TaskList" />
-        </action>
-    </fragment>
-    <dialog
-        android:id="@+id/listAddFragment"
-        android:name="com.example.trackme.ui.screens.todo.tasks_lists.ListAddFragment"
-        android:label="fragment_list_add"
-        tools:layout="@layout/fragment_list_add" />
-    <dialog
-        android:id="@+id/listFilterFragment"
-        android:name="com.example.trackme.ui.screens.todo.SortingFragment"
-        android:label="fragment_list_filter"
-        tools:layout="@layout/fragment_sorting" />
-    <fragment
-        android:id="@+id/taskFragment"
-        android:name="com.example.trackme.ui.screens.todo.task.TaskFragment"
-        android:label="fragment_task"
-        tools:layout="@layout/fragment_task" >
-        <action
-            android:id="@+id/action_taskFragment_to_taskAddFragment"
-            app:destination="@id/taskAddFragment">
-            <argument
-                android:name="taskList"
-                app:argType="com.example.domain.models.TaskList" />
-        </action>
-        <argument
-            android:name="taskList"
-            app:argType="com.example.domain.models.TaskList" />
-        <action
-            android:id="@+id/action_taskFragment_to_listFilterFragment"
-            app:destination="@id/listFilterFragment" />
-        <action
-            android:id="@+id/action_taskFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment">
-            <argument
-                android:name="taskList"
-                app:argType="com.example.domain.models.TaskList" />
-        </action>
-    </fragment>
-    <dialog
-        android:id="@+id/taskAddFragment"
-        android:name="com.example.trackme.ui.screens.todo.task.TaskAddFragment"
-        android:label="fragment_task_add"
-        tools:layout="@layout/fragment_task_add" >
-        <argument
-            android:name="taskList"
-            app:argType="com.example.domain.models.TaskList" />
-    </dialog>
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.example.trackme.ui.screens.MapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" >
-        <argument
-            android:name="taskList"
-            app:argType="com.example.domain.models.TaskList" />
-    </fragment>
-    <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.trackme.ui.login.HomeFragment"
+        android:name="com.example.trackme.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_listFragment"
-            app:destination="@id/listFragment"
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.example.trackme.ui.screens.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
-        <action
-            android:id="@+id/action_splashFragment_to_listFragment"
-            app:destination="@id/listFragment"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -114,8 +22,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_listFragment"
-            app:destination="@id/listFragment"
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>

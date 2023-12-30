@@ -4,11 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.Task
 import com.example.domain.repo.TaskRepository
-import com.example.trackme.ui.core.utils.FilterUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -16,7 +14,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskViewModel @Inject constructor(private val taskRepository: TaskRepository) : ViewModel() {
 
-    val currentFilter: StateFlow<Int> get() = FilterUtils.sort
     fun getTasks(listType : String) : Flow<List<Task>> = taskRepository.getAllTasks(listType)
     suspend fun countCompletedTasks(listType: String) : Int {
         return withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
@@ -40,11 +37,4 @@ class TaskViewModel @Inject constructor(private val taskRepository: TaskReposito
         taskRepository.deleteListTasks(listType)
     }
 
-    fun sortTasks(tasks: List<Task>): List<Task> {
-        return when (currentFilter.value) {
-            1 -> tasks.sortedBy { it.title } // Ascending
-            2 -> tasks.sortedByDescending { it.title } // Descending
-            else -> tasks
-        }
-    }
 }

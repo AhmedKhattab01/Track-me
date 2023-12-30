@@ -1,30 +1,32 @@
 package com.example.data.local.dao
 
-import androidx.room.*
-import com.example.domain.models.Task
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
+import com.example.domain.models.TaskList
 import kotlinx.coroutines.flow.Flow
-
 
 @Dao
 interface TaskDao {
-    @Query("SELECT * FROM tasks_table WHERE listType = :listType ORDER BY isCompleted")
-    fun getTasks(listType : String) : Flow<List<Task>>
+    @Query("SELECT * FROM lists_table")
+    fun getAllLists() : Flow<List<TaskList>>
 
-    @Query("DELETE FROM tasks_table")
-    suspend fun deleteAllTasks()
+    @Query("SELECT * FROM lists_table ORDER BY name DESC")
+    fun getAllListsDesc() : Flow<List<TaskList>>
+    @Query("SELECT * FROM lists_table ORDER BY name ASC")
+    fun getAllListsAsc() : Flow<List<TaskList>>
 
-    @Query("SELECT COUNT(isCompleted) FROM tasks_table WHERE listType = :listType AND isCompleted = 1")
-    fun countCompleted(listType: String) : Int
-
-    @Query("DELETE FROM tasks_table WHERE listType = :listType")
-    fun deleteListTasks(listType: String)
+    @Query("DELETE FROM lists_table")
+    suspend fun deleteAllLists()
 
     @Update
-    suspend fun updateTask(task: Task)
+    suspend fun updateList(taskList: TaskList)
 
     @Insert
-    suspend fun insertTask(task: Task)
+    suspend fun insertList(taskList: TaskList)
 
     @Delete
-    suspend fun deleteTask(task: Task)
+    suspend fun deleteList(taskList: TaskList)
 }

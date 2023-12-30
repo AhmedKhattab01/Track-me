@@ -1,4 +1,4 @@
-package com.example.trackme.ui.screens.todo.tasks_lists
+package com.example.trackme.ui.tasks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,27 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackme.R
 import com.example.trackme.databinding.FragmentListBinding
-import com.example.trackme.ui.core.adapters.TaskListAdapter
+import com.example.trackme.ui.home.adapters.TaskAdapter
 import com.example.trackme.ui.screens.todo.task.TaskViewModel
-import com.example.trackme.ui.shared_viewmodels.IconViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.combine
 
-class ListFragment : Fragment() {
+class TasksFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-    private val listViewModel: ListViewModel by activityViewModels()
+    private val listViewModel: com.example.trackme.ui.tasks.TaskViewModel by activityViewModels()
     private val taskViewModel: TaskViewModel by activityViewModels()
-    private val iconViewModel : IconViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,30 +35,23 @@ class ListFragment : Fragment() {
         val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab)
 
         // Create adapter
-        val adapter = TaskListAdapter(listViewModel, iconViewModel)
+        val adapter = TaskAdapter()
         binding.rvLists.adapter = adapter
 
         // Replace current menu with this fragment menu
         bottomAppBar.replaceMenu(R.menu.menu_list)
         bottomAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_list_sort -> findNavController().navigate(R.id.action_listFragment_to_listFilterFragment)
+              //  R.id.action_list_sort -> findNavController().navigate(R.id.action_listFragment_to_listFilterFragment)
             }
             true
         }
 
         // collect list items
-        lifecycleScope.launchWhenCreated {
-            combine(listViewModel.list, listViewModel.currentFilter) { list, _ ->
-                listViewModel.sortTasks(list)
-            }.collect { filteredList ->
-                adapter.submitList(filteredList)
-            }
-        }
 
         // launch bottom sheet on fab clicked
         fab.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_listAddFragment)
+           // findNavController().navigate(R.id.action_listFragment_to_listAddFragment)
         }
 
         // Delete list on swipe

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".ui.screens.todo.tasks_lists.ListAddFragment">
+    tools:context=".ui.tasks.TaskAddSheet">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content"
-            android:hint="New list" />
+            android:hint="@string/new_task" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:enabled="false"
-        android:text="Save"
+        android:text="@string/save"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

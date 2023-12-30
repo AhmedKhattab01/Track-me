@@ -1,4 +1,4 @@
-package com.example.trackme.ui.screens.todo.tasks_lists
+package com.example.trackme.ui.tasks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,26 +7,19 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.data.utils.currentDate
 import com.example.domain.models.TaskList
 import com.example.trackme.R
-import com.example.trackme.databinding.FragmentListAddBinding
-import com.example.trackme.ui.shared_viewmodels.IconViewModel
+import com.example.trackme.databinding.SheetTaskAddBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
-import com.maltaisn.icondialog.IconDialog
-import com.maltaisn.icondialog.IconDialogSettings
-import com.maltaisn.icondialog.data.Icon
-import com.maltaisn.icondialog.pack.IconPack
 
-class ListAddFragment : BottomSheetDialogFragment(), IconDialog.Callback {
-    private var _binding: FragmentListAddBinding? = null
+class TaskAddSheet : BottomSheetDialogFragment(){
+    private var _binding: SheetTaskAddBinding? = null
     private val binding get() = _binding!!
 
-    private val listViewModel: ListViewModel by activityViewModels()
-    private val iconViewModel: IconViewModel by activityViewModels()
+    private val taskViewModel: TaskViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
@@ -36,42 +29,40 @@ class ListAddFragment : BottomSheetDialogFragment(), IconDialog.Callback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentListAddBinding.inflate(inflater, container, false)
+        _binding = SheetTaskAddBinding.inflate(inflater, container, false)
 
         with(binding) {
             // Enable save button when text is not equal null or empty
             etList.addTextChangedListener { btnSave.isEnabled = it.toString().isNotEmpty() }
 
             // Icon
-            iconViewModel.iconPack.loadDrawables(iconViewModel.drawableLoader)
-            btnIcon.setOnClickListener { IconDialog.newInstance(IconDialogSettings()).show(childFragmentManager, "Faa") }
-            btnIcon.setColorFilter(listViewModel.color)
+            btnIcon.setColorFilter(taskViewModel.color)
 
             // Color
             btnColor.setOnClickListener {
                 ColorPickerDialog
                     .newBuilder()
-                    .setColor(listViewModel.color)
+                    .setColor(taskViewModel.color)
                     .create().also {
                         it.setColorPickerDialogListener(object : ColorPickerDialogListener {
                             override fun onColorSelected(dialogId: Int, color: Int) {
-                                listViewModel.color = color
-                                btnColor.setColorFilter(listViewModel.color)
-                                btnIcon.setColorFilter(listViewModel.color)
+                                taskViewModel.color = color
+                                btnColor.setColorFilter(taskViewModel.color)
+                                btnIcon.setColorFilter(taskViewModel.color)
                             }
                             override fun onDialogDismissed(dialogId: Int) {}
                         })
                         it.show(requireActivity().supportFragmentManager, "Foo")
                     }
             }
-            btnColor.setColorFilter(listViewModel.color)
+            btnColor.setColorFilter(taskViewModel.color)
 
             // Save button
             btnSave.setOnClickListener {
                 val listName = etList.text.toString().replaceFirstChar { it.titlecase() }
-                val taskList = TaskList(0, listName, currentDate, color = listViewModel.color, iconId = iconViewModel.iconId)
-                listViewModel.insertList(taskList)
-                findNavController().popBackStack()
+                val taskList = TaskList(0, listName, currentDate, color = taskViewModel.color, iconId = -1)
+                taskViewModel.insertList(taskList)
+                dismiss()
             }
         }
 
@@ -81,13 +72,5 @@ class ListAddFragment : BottomSheetDialogFragment(), IconDialog.Callback {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    override val iconDialogIconPack: IconPack
-        get() = iconViewModel.iconPack
-
-    override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
-        binding.btnIcon.setImageDrawable(icons[0].drawable)
-        iconViewModel.iconId = icons[0].id
     }
 }

@@ -1,9 +1,9 @@
-package com.example.trackme.ui.core.differs
+package com.example.trackme.ui.home.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.domain.models.TaskList
 
-class ListDiffItemCallBack : DiffUtil.ItemCallback<TaskList>() {
+class TaskDiffer : DiffUtil.ItemCallback<TaskList>() {
     override fun areItemsTheSame(oldItem: TaskList, newItem: TaskList): Boolean {
         return oldItem.id == newItem.id
     }
