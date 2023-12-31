@@ -1,28 +1,27 @@
 package com.example.trackme.ui.home.adapters
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.TaskList
+import com.example.domain.models.task.Task
 import com.example.trackme.databinding.ItemRvListBinding
 
-class TaskAdapter : ListAdapter<TaskList, TaskAdapter.TaskListViewHolder>(
+class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(
     TaskDiffer()
 ) {
     inner class TaskListViewHolder(private val binding: ItemRvListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: TaskList) {
+        fun bind(item: Task) {
             binding.apply {
-                tvName.text = item.name
-                tvDate.text = item.creationDate
+                tvName.text = item.taskName
+                //tvDate.text = item.creationDate
 
-                progressBar.progressTintList = ColorStateList.valueOf(item.color)
+                //progressBar.progressTintList = ColorStateList.valueOf(item.color)
             }
 
             with(binding.ivIcon) {
-                setColorFilter(item.color)
+               // setColorFilter(item.color)
             }
         }
     }

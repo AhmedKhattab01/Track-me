@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.example.data.utils.currentDate
-import com.example.domain.models.TaskList
+import com.example.domain.models.task.Task
 import com.example.trackme.R
 import com.example.trackme.databinding.SheetTaskAddBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.jaredrummler.android.colorpicker.ColorPickerDialog
-import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
+import com.skydoves.colorpickerview.ColorPickerDialog
 
 class TaskAddSheet : BottomSheetDialogFragment(){
     private var _binding: SheetTaskAddBinding? = null
@@ -35,32 +33,28 @@ class TaskAddSheet : BottomSheetDialogFragment(){
             // Enable save button when text is not equal null or empty
             etList.addTextChangedListener { btnSave.isEnabled = it.toString().isNotEmpty() }
 
-            // Icon
-            btnIcon.setColorFilter(taskViewModel.color)
-
             // Color
             btnColor.setOnClickListener {
-                ColorPickerDialog
-                    .newBuilder()
-                    .setColor(taskViewModel.color)
-                    .create().also {
-                        it.setColorPickerDialogListener(object : ColorPickerDialogListener {
-                            override fun onColorSelected(dialogId: Int, color: Int) {
-                                taskViewModel.color = color
-                                btnColor.setColorFilter(taskViewModel.color)
-                                btnIcon.setColorFilter(taskViewModel.color)
-                            }
-                            override fun onDialogDismissed(dialogId: Int) {}
-                        })
-                        it.show(requireActivity().supportFragmentManager, "Foo")
+                ColorPickerDialog.Builder(requireContext(), R.style.MyColorPickerDialogTheme)
+                    .setTitle("ColorPicker Dialog")
+                    .setPreferenceName("MyColorPickerDialog")
+                    .setPositiveButton("Confirm") { envelope, fromUser ->
+
                     }
+                    .setNegativeButton("Cancel") { dialogInterface, _ ->
+                        dialogInterface.dismiss()
+                    }
+                    .attachAlphaSlideBar(true)
+                    .attachBrightnessSlideBar(true)
+                    .setBottomSpace(12)
+                    .show()
+
             }
-            btnColor.setColorFilter(taskViewModel.color)
 
             // Save button
             btnSave.setOnClickListener {
                 val listName = etList.text.toString().replaceFirstChar { it.titlecase() }
-                val taskList = TaskList(0, listName, currentDate, color = taskViewModel.color, iconId = -1)
+                val taskList = Task(0, listName)
                 taskViewModel.insertList(taskList)
                 dismiss()
             }

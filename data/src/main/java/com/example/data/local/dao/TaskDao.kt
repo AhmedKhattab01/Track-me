@@ -5,28 +5,28 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.domain.models.TaskList
+import com.example.data.local.entities.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
-    @Query("SELECT * FROM lists_table")
-    fun getAllLists() : Flow<List<TaskList>>
+    @Query("SELECT * FROM tasks_table")
+    fun getAllLists() : Flow<List<TaskEntity>>
 
-    @Query("SELECT * FROM lists_table ORDER BY name DESC")
-    fun getAllListsDesc() : Flow<List<TaskList>>
-    @Query("SELECT * FROM lists_table ORDER BY name ASC")
-    fun getAllListsAsc() : Flow<List<TaskList>>
+    @Query("SELECT * FROM tasks_table ORDER BY taskName DESC")
+    fun getAllListsDesc() : Flow<List<TaskEntity>>
+    @Query("SELECT * FROM tasks_table ORDER BY taskName ASC")
+    fun getAllListsAsc() : Flow<List<TaskEntity>>
 
-    @Query("DELETE FROM lists_table")
+    @Query("DELETE FROM tasks_table")
     suspend fun deleteAllLists()
 
     @Update
-    suspend fun updateList(taskList: TaskList)
+    suspend fun updateList(taskList: TaskEntity)
 
     @Insert
-    suspend fun insertList(taskList: TaskList)
+    suspend fun insertList(taskList: TaskEntity)
 
     @Delete
-    suspend fun deleteList(taskList: TaskList)
+    suspend fun deleteList(taskList: TaskEntity)
 }

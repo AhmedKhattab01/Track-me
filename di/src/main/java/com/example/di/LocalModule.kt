@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.example.data.local.TrackDatabase
 import com.example.data.local.dao.TaskDao
-import com.example.data.local.dao.SubTaskDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,14 +16,8 @@ import javax.inject.Singleton
 object LocalModule {
     @Provides
     @Singleton
-    fun provideTaskDao(trackDatabase: TrackDatabase): SubTaskDao {
-        return trackDatabase.getTaskDao()
-    }
-
-    @Provides
-    @Singleton
     fun provideListDao(trackDatabase: TrackDatabase): TaskDao {
-        return trackDatabase.getListDao()
+        return trackDatabase.getTaskDao()
     }
 
     @Provides

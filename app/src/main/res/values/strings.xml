@@ -19,4 +19,9 @@
     <string name="or">OR</string>
     <string name="don_t_have_account_sign_up">Don\'t have account? Sign Up</string>
     <string name="forget_password">Forget Password?</string>
+
+
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
 </resources>

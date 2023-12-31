@@ -2,7 +2,7 @@ package com.example.trackme.ui.tasks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.models.TaskList
+import com.example.domain.models.task.Task
 import com.example.domain.repo.TasksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,22 +13,21 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskViewModel @Inject constructor(private val tasksRepository: TasksRepository) : ViewModel() {
 
-    var color = -16738680
-    var list: Flow<List<TaskList>> = tasksRepository.getAllTasks()
+    var list: Flow<List<Task>> = tasksRepository.getAllTasks()
 
     fun deleteAllLists() = viewModelScope.launch(Dispatchers.IO) {
         tasksRepository.deleteAllTasks()
     }
 
-    fun insertList(taskList: TaskList) = viewModelScope.launch(Dispatchers.IO) {
+    fun insertList(taskList: Task) = viewModelScope.launch(Dispatchers.IO) {
         tasksRepository.insertTask(taskList)
     }
 
-    fun deleteList(taskList: TaskList) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteList(taskList: Task) = viewModelScope.launch(Dispatchers.IO) {
         tasksRepository.deleteTask(taskList)
     }
 
-    fun updateList(taskList: TaskList) {
+    fun updateList(taskList: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             tasksRepository.updateTask(taskList)
         }
