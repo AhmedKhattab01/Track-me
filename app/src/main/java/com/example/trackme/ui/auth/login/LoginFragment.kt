@@ -1,9 +1,13 @@
 package com.example.trackme.ui.auth.login
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +29,26 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        val fullText = getString(R.string.don_t_have_account_sign_up)
+
+        // Locate the position of the specific word you want to highlight
+        val startIndex = 20
+        val endIndex = startIndex + 7
+
+        // Create a SpannableString
+        val spannableString = SpannableString(fullText)
+
+        // Apply a different color to the specific word
+        spannableString.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.md_theme_light_primary)),
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // Set the SpannableString to the TextView
+        binding.textView6.text = spannableString
 
         handleLoginBtnClick()
 

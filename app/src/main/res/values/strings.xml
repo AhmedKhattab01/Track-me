@@ -13,4 +13,10 @@
     <string name="no_lists_yet">No lists yet</string>
     <string name="save">Save</string>
     <string name="new_task">New task</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="enter_your_credentials_to_access_your_account_and_unlock_a_world_of_personalized_experiences">Enter your credentials to access your account and unlock a world of personalized experiences.</string>
+    <string name="or">OR</string>
+    <string name="don_t_have_account_sign_up">Don\'t have account? Sign Up</string>
+    <string name="forget_password">Forget Password?</string>
 </resources>
