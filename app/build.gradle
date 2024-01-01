@@ -67,20 +67,21 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-    implementation "androidx.activity:activity-ktx:1.6.1"
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.activity:activity-ktx:1.8.2"
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
-
-    implementation 'com.jaredrummler:colorpicker:1.1.0'
-    implementation 'com.maltaisn:icondialog:3.3.0'
-    implementation "com.maltaisn:iconpack-default:1.1.0"
-
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.libraries.places:places:3.0.0'
 
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
-    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-auth")
+
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    implementation 'com.facebook.android:facebook-login:16.0.0'
+    implementation "com.github.skydoves:colorpickerview:2.3.0"
+
 }

@@ -3,7 +3,7 @@ package com.example.trackme.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.Constants
-import com.example.domain.models.TaskList
+import com.example.domain.models.task.Task
 import com.example.domain.repo.TasksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val TAG = this.javaClass.simpleName
 
-    private val _tasks = MutableStateFlow<List<TaskList>>(emptyList())
+    private val _tasks = MutableStateFlow<List<Task>>(emptyList())
     val tasks = _tasks.asStateFlow()
 
     private val _sortResult = MutableStateFlow(0)

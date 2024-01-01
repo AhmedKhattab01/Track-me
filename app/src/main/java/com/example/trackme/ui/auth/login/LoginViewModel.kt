@@ -40,6 +40,20 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    suspend fun tryLoginWithGoogle(token : String) {
+        loginUseCase.loginWithGoogle(token).apply {
+            when (this) {
+                is TaskResult.Failure -> {
+                    _loginResult.value = null
+                    _authErrorFlow.value = this.body as Exception
+                }
+
+                is TaskResult.Loading -> {}
+                is TaskResult.Success -> _loginResult.value = this.value as AuthResult
+            }
+        }
+    }
+
     fun handleSignInWithEmailAndPasswordException(): Int {
         return when (val exception = authErrorFlow.value) {
             is FirebaseAuthInvalidUserException -> {

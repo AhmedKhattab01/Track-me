@@ -1,14 +1,14 @@
 package com.example.domain.repo
 
-import com.example.domain.models.TaskList
+import com.example.domain.models.task.Task
 import kotlinx.coroutines.flow.Flow
 
 interface TasksRepository {
-    fun getAllTasks(): Flow<List<TaskList>>
-    fun getAllTaskAsc(): Flow<List<TaskList>>
-    fun getAllTasksDesc(): Flow<List<TaskList>>
+    fun getAllTasks(): Flow<List<Task>>
+    fun getAllTaskAsc(): Flow<List<Task>>
+    fun getAllTasksDesc(): Flow<List<Task>>
     suspend fun deleteAllTasks()
-    suspend fun updateTask(taskList: TaskList)
-    suspend fun insertTask(taskList: TaskList)
-    suspend fun deleteTask(taskList: TaskList)
+    suspend fun updateTask(task: Task)
+    suspend fun insertTask(task: Task)
+    suspend fun deleteTask(task: Task)
 }
