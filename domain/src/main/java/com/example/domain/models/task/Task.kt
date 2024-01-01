@@ -8,7 +8,7 @@ data class Task(
     @PrimaryKey(true)
     val id : Int,
     val taskName : String,
-    val taskColorHex : String? = null,
-    val creationTimeStamp : Long? = null,
-    val totalSubTasks : Int? = null,
+    val taskColorHex : String? = "#000000",
+    val creationTimeStamp : Long? = System.currentTimeMillis(),
+    val totalSubTasks : Int? = 0,
 )
