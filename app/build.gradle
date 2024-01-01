@@ -84,4 +84,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:16.0.0'
     implementation "com.github.skydoves:colorpickerview:2.3.0"
 
+    // Icon pack
+    implementation 'com.maltaisn:icondialog:3.3.0'
+    implementation "com.maltaisn:iconpack-community-material:5.3.45"
 }

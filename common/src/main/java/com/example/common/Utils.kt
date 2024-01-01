@@ -1,11 +1,17 @@
 package com.example.common
 
+import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 object Utils {
+
+    fun Any?.printToLog(tag: String = "DEBUG_LOG") {
+        Log.d(tag, toString())
+    }
+
     fun convertTimestampToFriendlyDate(timestamp: Long): String {
         val currentTime = System.currentTimeMillis()
         val elapsedTime = currentTime - timestamp

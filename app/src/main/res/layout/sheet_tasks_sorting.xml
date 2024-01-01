@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:padding="16dp"
     android:layout_height="match_parent"
-    tools:context=".ui.home.TasksSortingSheet" >
+    tools:context=".ui.home.tasks.TasksSortingSheet" >
 
     <TextView
         android:id="@+id/textView3"
@@ -39,6 +39,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Decending" />
+
+        <RadioButton
+            android:id="@+id/rb_oldest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Oldest" />
+
+        <RadioButton
+            android:id="@+id/rb_newest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Newest" />
 
     </RadioGroup>
 

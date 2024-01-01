@@ -48,6 +48,18 @@ class HomeViewModel @Inject constructor(
                         _tasks.value = it
                     }
                 }
+
+                Constants.OLDEST -> {
+                    tasksRepository.getAllTasksOldest().collect {
+                        _tasks.value = it
+                    }
+                }
+
+                Constants.NEWEST -> {
+                    tasksRepository.getAllTasksNewest().collect {
+                        _tasks.value = it
+                    }
+                }
             }
         }
     }

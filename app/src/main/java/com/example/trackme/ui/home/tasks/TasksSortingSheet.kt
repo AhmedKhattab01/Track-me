@@ -1,4 +1,4 @@
-package com.example.trackme.ui.home
+package com.example.trackme.ui.home.tasks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.trackme.R
 import com.example.trackme.databinding.SheetTasksSortingBinding
+import com.example.trackme.ui.home.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,6 +37,8 @@ class TasksSortingSheet : BottomSheetDialogFragment() {
             R.id.rb_default to 0,
             R.id.rb_ascending to 1,
             R.id.rb_descending to 2,
+            R.id.rb_oldest to 3,
+            R.id.rb_newest to 4,
         )
 
         // Set the selected radio button based on the current filter value

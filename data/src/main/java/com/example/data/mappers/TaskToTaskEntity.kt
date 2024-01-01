@@ -12,6 +12,7 @@ class TaskToTaskEntity : DtoToDomain<Task,  TaskEntity> {
             creationTimeStamp = from.creationTimeStamp,
             taskColorHex = from.taskColorHex,
             totalSubTasks = from.totalSubTasks,
+            taskIconId = from.taskIconId
         )
     }
 }

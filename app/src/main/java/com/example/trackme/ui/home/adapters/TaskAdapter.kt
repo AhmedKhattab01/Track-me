@@ -1,38 +1,39 @@
 package com.example.trackme.ui.home.adapters
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.common.Utils
+import com.example.common_ui.Utils.invisibleIf
 import com.example.domain.models.task.Task
 import com.example.trackme.databinding.ItemRvListBinding
 
-class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(
-    TaskDiffer()
-) {
+class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(TaskDiffer()) {
     inner class TaskListViewHolder(private val binding: ItemRvListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task) {
             binding.apply {
                 tvName.text = item.taskName
-                //tvDate.text = item.creationDate
+                tvDate.text = Utils.convertTimestampToFriendlyDate(item.creationTimeStamp)
 
-                //progressBar.progressTintList = ColorStateList.valueOf(item.color)
-            }
+                ivIcon.setColorFilter(Color.parseColor(item.taskColorHex))
 
-            with(binding.ivIcon) {
-               // setColorFilter(item.color)
+                progressBar.progressTintList =
+                    ColorStateList.valueOf(Color.parseColor(item.taskColorHex))
+
+                progressBar.invisibleIf(item.totalSubTasks <= 0)
+                tvProgress.invisibleIf(item.totalSubTasks <= 0)
+                tvCompletedTasks.invisibleIf(item.totalSubTasks <= 0)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
         return TaskListViewHolder(
-            ItemRvListBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+            ItemRvListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

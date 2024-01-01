@@ -11,4 +11,9 @@ object Constants {
     const val DEFAULT = 0
     const val ASCENDING = 1
     const val DESCENDING = 2
+    const val OLDEST = 3
+    const val NEWEST = 4
+
+    // TASK COLOR
+    const val DEFAULT_TASK_COLOR = "#C0001B"
 }

@@ -8,7 +8,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.common_ui.Utils.visibleIf
 import com.example.trackme.R
 import com.example.trackme.databinding.ActivityMainBinding
-import com.example.trackme.ui.tasks.TaskAddSheet
+import com.example.trackme.ui.home.tasks.TaskAddSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var navController: NavController
-    private val addTaskSheet by lazy { TaskAddSheet() }
 
     private val destinations = listOf(
         R.id.homeFragment
@@ -44,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             when (navController.currentDestination?.id) {
                 R.id.homeFragment -> {
+                    val addTaskSheet = TaskAddSheet()
                     addTaskSheet.show(supportFragmentManager, TAG)
                 }
             }

@@ -5,37 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".ui.tasks.TaskAddSheet">
+    tools:context=".ui.home.tasks.TaskAddSheet">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/container_task_name"
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_list"
+            android:id="@+id/et_task_name"
             android:layout_width="match_parent"
-            android:background="@android:color/transparent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:hint="@string/new_task" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/transparent"
         android:enabled="false"
         android:text="@string/save"
-        android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/container_task_name" />
 
     <ImageButton
         android:id="@+id/btn_icon"
@@ -43,8 +42,9 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/baseline_tag_faces_24"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintStart_toStartOf="@+id/container_task_name"
+        app:layout_constraintTop_toBottomOf="@+id/container_task_name"
+        app:tint="@color/md_theme_light_primary" />
 
     <ImageButton
         android:id="@+id/btn_color"
@@ -53,5 +53,6 @@
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/baseline_color_lens_24"
         app:layout_constraintStart_toEndOf="@+id/btn_icon"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/container_task_name"
+        app:tint="@color/md_theme_light_primary" />
 </androidx.constraintlayout.widget.ConstraintLayout>
