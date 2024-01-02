@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="72dp"
-    tools:context=".ui.tasks.TasksFragment">
+    android:paddingBottom="72dp">
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/grp_empty_tasks"
@@ -15,7 +14,7 @@
         app:constraint_referenced_ids="imageView,textView,textView2" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_lists"
+        android:id="@+id/rv_tasks"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
@@ -43,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rv_lists" />
+        app:layout_constraintTop_toTopOf="@+id/rv_tasks" />
 
     <TextView
         android:id="@+id/textView"

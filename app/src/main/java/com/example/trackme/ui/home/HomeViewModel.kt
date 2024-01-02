@@ -6,6 +6,7 @@ import com.example.common.Constants
 import com.example.domain.models.task.Task
 import com.example.domain.repo.TasksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -66,5 +67,13 @@ class HomeViewModel @Inject constructor(
 
     fun setSort(it: Int) {
         _sortResult.value = it
+    }
+
+    fun deleteTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
+        tasksRepository.deleteTask(task)
+    }
+
+    fun insertTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
+        tasksRepository.insertTask(task)
     }
 }

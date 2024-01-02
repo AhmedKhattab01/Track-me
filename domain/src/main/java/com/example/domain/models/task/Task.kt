@@ -7,5 +7,5 @@ data class Task(
     val taskColorHex : String = "#000000",
     val creationTimeStamp : Long = System.currentTimeMillis(),
     val totalSubTasks : Int = 0,
-    val taskIconId : Int
+    val taskIconId : Int? = null
 )

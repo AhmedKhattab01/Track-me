@@ -16,6 +16,7 @@ import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.data.Icon
 import com.maltaisn.icondialog.pack.IconPack
+import com.maltaisn.icondialog.pack.IconPackLoader
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,8 @@ class TaskAddSheet : BottomSheetDialogFragment(), IconDialog.Callback {
     private val binding get() = _binding!!
 
     private val viewModel: TaskViewModel by viewModels()
+    private val loader by lazy { IconPackLoader(requireContext()) }
+
     companion object {
         private const val ICON_DIALOG_TAG = "icon-dialog"
     }
@@ -41,9 +44,10 @@ class TaskAddSheet : BottomSheetDialogFragment(), IconDialog.Callback {
     ): View {
         _binding = SheetTaskAddBinding.inflate(inflater, container, false)
 
-        val iconDialog = this.childFragmentManager.findFragmentByTag(ICON_DIALOG_TAG) as IconDialog? ?: IconDialog.newInstance(
-            IconDialogSettings()
-        )
+        val iconDialog = this.childFragmentManager.findFragmentByTag(ICON_DIALOG_TAG) as IconDialog?
+            ?: IconDialog.newInstance(
+                IconDialogSettings()
+            )
 
         binding.btnIcon.setOnClickListener {
             iconDialog.show(this.childFragmentManager, ICON_DIALOG_TAG)
@@ -118,6 +122,13 @@ class TaskAddSheet : BottomSheetDialogFragment(), IconDialog.Callback {
         get() = (requireActivity().application as TrackApplication).iconPack
 
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
-        // TODO :// SAVE THE ICON AND LOAD IT
+        val selectedDrawable =
+            iconDialogIconPack.getIconDrawable(icons[0].id, loader.drawableLoader)
+
+        binding.btnIcon.setImageDrawable(
+            selectedDrawable
+        )
+
+        viewModel.setSelectedIconId(icons[0].id)
     }
 }

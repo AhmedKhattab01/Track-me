@@ -10,8 +10,10 @@ import com.example.common.Utils
 import com.example.common_ui.Utils.invisibleIf
 import com.example.domain.models.task.Task
 import com.example.trackme.databinding.ItemRvListBinding
+import com.maltaisn.icondialog.pack.IconDrawableLoader
+import com.maltaisn.icondialog.pack.IconPack
 
-class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(TaskDiffer()) {
+class TaskAdapter(private val drawableLoader: IconDrawableLoader,private val iconPack: IconPack) : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(TaskDiffer()) {
     inner class TaskListViewHolder(private val binding: ItemRvListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task) {
@@ -20,6 +22,12 @@ class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(TaskDiffer
                 tvDate.text = Utils.convertTimestampToFriendlyDate(item.creationTimeStamp)
 
                 ivIcon.setColorFilter(Color.parseColor(item.taskColorHex))
+
+                item.taskIconId?.let {
+                    ivIcon.setImageDrawable(
+                        iconPack.getIconDrawable(it, drawableLoader)
+                    )
+                }
 
                 progressBar.progressTintList =
                     ColorStateList.valueOf(Color.parseColor(item.taskColorHex))

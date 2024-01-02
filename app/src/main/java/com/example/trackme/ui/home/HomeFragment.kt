@@ -15,27 +15,38 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.common_ui.Utils.visibleIf
 import com.example.trackme.R
+import com.example.trackme.TrackApplication
 import com.example.trackme.databinding.FragmentHomeBinding
 import com.example.trackme.ui.home.adapters.TaskAdapter
 import com.example.trackme.ui.home.tasks.TasksSortingSheet
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.maltaisn.icondialog.pack.IconPackLoader
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(),MenuProvider {
+class HomeFragment : Fragment(), MenuProvider {
     private val TAG = this.javaClass.simpleName
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var firebaseAuth : FirebaseAuth
+    private lateinit var firebaseAuth: FirebaseAuth
 
     private val viewModel: HomeViewModel by viewModels(ownerProducer = { this })
+    private val loader by lazy { IconPackLoader(requireContext()) }
 
-    private val listAdapter by lazy { TaskAdapter() }
+    private val taskAdapter by lazy {
+        TaskAdapter(
+            loader.drawableLoader,
+            (requireActivity().application as TrackApplication).iconPack
+        )
+    }
 
     private val dialog by lazy { TasksSortingSheet() }
 
@@ -51,11 +62,35 @@ class HomeFragment : Fragment(),MenuProvider {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.rvLists.adapter = listAdapter
+        binding.rvTasks.adapter = taskAdapter
 
         if (firebaseAuth.currentUser == null) {
             findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
         }
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                lifecycleScope.launch {
+                    val task = taskAdapter.currentList[viewHolder.adapterPosition]
+                    viewModel.deleteTask(task)
+
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.task_deleted), Snackbar.LENGTH_LONG
+                    ).setAction(getString(R.string.undo)) {
+                        viewModel.insertTask(task)
+                    }.show()
+                }
+            }
+        }).attachToRecyclerView(binding.rvTasks)
 
         observeTasks()
 
@@ -73,7 +108,7 @@ class HomeFragment : Fragment(),MenuProvider {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.tasks.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
                 binding.grpEmptyTasks.visibleIf((it).isEmpty())
-                listAdapter.submitList(it)
+                taskAdapter.submitList(it)
             }
         }
     }
@@ -91,7 +126,7 @@ class HomeFragment : Fragment(),MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.menu_sorting -> {
-                dialog.show(childFragmentManager,TAG)
+                dialog.show(childFragmentManager, TAG)
                 true
             }
 
