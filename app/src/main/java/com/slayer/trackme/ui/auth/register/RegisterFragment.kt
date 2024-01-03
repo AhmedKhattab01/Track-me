@@ -21,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.slayer.common.ValidationUtil
+import com.slayer.common_ui.Utils
+import com.slayer.common_ui.Utils.safeCall
 import com.slayer.common_ui.Utils.toast
 import com.slayer.trackme.R
 import com.slayer.trackme.databinding.FragmentRegisterBinding
@@ -83,7 +85,9 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnGoogle.setOnClickListener {
-            googleSignInLauncher.launch(googleSignInClient.signInIntent)
+            safeCall(requireContext()) {
+                googleSignInLauncher.launch(googleSignInClient.signInIntent)
+            }
         }
 
         // Inflate the layout for this fragment
@@ -104,14 +108,16 @@ class RegisterFragment : Fragment() {
 
                 if (areValidFields(email, password, confirmPassword)) return@setOnClickListener
 
-                lifecycleScope.launch {
-                    viewModel.tryRegister(email, password)
+                Utils.safeCall(requireContext()) {
+                    lifecycleScope.launch {
+                        viewModel.tryRegister(email, password)
 
-                    if (viewModel.registerResult.value?.user != null) {
-                        findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
-                    }
-                    else {
-                        toast(viewModel.handleSignUpWithEmailAndPasswordException())
+                        if (viewModel.registerResult.value?.user != null) {
+                            findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                        }
+                        else {
+                            toast(viewModel.handleSignUpWithEmailAndPasswordException())
+                        }
                     }
                 }
             }

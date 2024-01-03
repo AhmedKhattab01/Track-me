@@ -1,9 +1,13 @@
 package com.slayer.common_ui
 
 import android.app.Activity
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 
 object Utils {
@@ -37,4 +41,32 @@ object Utils {
 
     infix fun View.invisibleIf(condition: Boolean) =
         run { visibility = if (condition) View.INVISIBLE else View.VISIBLE }
+
+    fun safeCall(context: Context, call: () -> Unit) {
+        if (isNetworkConnected(context)) {
+            call.invoke()
+        }
+        else {
+            showNoInternetDialog(context)
+        }
+    }
+
+    private fun isNetworkConnected(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val networkCapabilities = connectivityManager.activeNetwork ?: return false
+        val activeNetwork =
+            connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+
+        return activeNetwork.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun showNoInternetDialog(context: Context) {
+        AlertDialog.Builder(context)
+            .setTitle("No Internet Connection")
+            .setMessage("Please check your internet connection and try again.")
+            .setPositiveButton("OK", null)
+            .show()
+    }
 }
