@@ -2,10 +2,12 @@ package com.slayer.trackme.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.slayer.common.Constants
 import com.slayer.common.Utils.printToLog
 import com.slayer.domain.models.TaskResult
+import com.slayer.domain.usecases.auth_usecases.GoogleAuthUseCase
 import com.slayer.domain.usecases.auth_usecases.LoginUseCase
 import com.slayer.trackme.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val googleAuthUseCase: GoogleAuthUseCase
 ) : ViewModel() {
 
     private val TAG = this.javaClass.simpleName
@@ -27,7 +30,7 @@ class LoginViewModel @Inject constructor(
     private val authErrorFlow = _authErrorFlow.asStateFlow()
 
     suspend fun tryLogin(email: String, password: String) {
-        loginUseCase.login(email, password).apply {
+        loginUseCase(email, password).apply {
             when (this) {
                 is TaskResult.Failure -> {
                     _loginResult.value = null
@@ -41,7 +44,7 @@ class LoginViewModel @Inject constructor(
     }
 
     suspend fun tryLoginWithGoogle(token : String) {
-        loginUseCase.loginWithGoogle(token).apply {
+        googleAuthUseCase(token).apply {
             when (this) {
                 is TaskResult.Failure -> {
                     _loginResult.value = null
@@ -58,6 +61,10 @@ class LoginViewModel @Inject constructor(
         return when (val exception = authErrorFlow.value) {
             is FirebaseAuthInvalidUserException -> {
                 handleInvalidUser(exception)
+            }
+
+            is FirebaseAuthInvalidCredentialsException -> {
+                R.string.incorrect_password
             }
 
             else -> {

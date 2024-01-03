@@ -26,14 +26,16 @@ class AuthRepoImpl(private val firebaseAuth: FirebaseAuth) : AuthRepository {
     }
 
     override suspend fun loginWithGoogle(token: String): TaskResult<AuthResult> {
-        return try {
-            val credential = GoogleAuthProvider.getCredential(token, null)
-            val result = firebaseAuth.signInWithCredential(credential).await()
-            // You can return the AuthResult or any relevant information here
-            TaskResult.Success(result)
-        } catch (e: Exception) {
-            // Handle the exception or return an appropriate error message
-            TaskResult.Failure(e.message,-1)
+        return withContext(Dispatchers.IO) {
+            try {
+                val credential = GoogleAuthProvider.getCredential(token, null)
+                val result = firebaseAuth.signInWithCredential(credential).await()
+                // You can return the AuthResult or any relevant information here
+                TaskResult.Success(result)
+            } catch (e: Exception) {
+                // Handle the exception or return an appropriate error message
+                TaskResult.Failure(e.message,-1)
+            }
         }
     }
 
@@ -42,6 +44,17 @@ class AuthRepoImpl(private val firebaseAuth: FirebaseAuth) : AuthRepository {
             try {
                 val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
                 TaskResult.Success(result)
+            } catch (e : Exception) {
+                TaskResult.Failure(e.message,-1,e)
+            }
+        }
+    }
+
+    override suspend fun forgetPassword(email: String): TaskResult<Boolean> {
+        return withContext(Dispatchers.IO) {
+            try {
+                firebaseAuth.sendPasswordResetEmail(email).await()
+                TaskResult.Success(true)
             } catch (e : Exception) {
                 TaskResult.Failure(e.message,-1,e)
             }

@@ -40,4 +40,7 @@
     <string name="account_already_registered">An account with this email address already exists. Please sign in or use a different email address.</string>
     <string name="email_address_is_required_please_enter_a_valid_email">Email address is required. Please enter a valid email.</string>
     <string name="do_you_have_account_sign_in">Do you have account? Sign In</string>
+    <string name="forget_password_header">Forget Password</string>
+    <string name="incorrect_password">Incorrect password. Please double-check your password and try again.</string>
+    <string name="email_is_not_registered">There is no user record corresponding to this identifier. The user may have been deleted.</string>
 </resources>

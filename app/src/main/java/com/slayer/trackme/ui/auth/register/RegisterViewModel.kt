@@ -5,7 +5,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.slayer.common.Utils.printToLog
 import com.slayer.domain.models.TaskResult
-import com.slayer.domain.usecases.auth_usecases.LoginUseCase
+import com.slayer.domain.usecases.auth_usecases.GoogleAuthUseCase
 import com.slayer.domain.usecases.auth_usecases.RegisterUseCase
 import com.slayer.trackme.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-    private val loginUseCase: LoginUseCase
+    private val googleAuthUseCase: GoogleAuthUseCase
 ) : ViewModel() {
     private val _registerResult = MutableStateFlow<AuthResult?>(null)
     val registerResult = _registerResult.asStateFlow()
@@ -25,7 +25,7 @@ class RegisterViewModel @Inject constructor(
     private val authErrorFlow = _authErrorFlow.asStateFlow()
 
     suspend fun tryRegister(email: String, password: String) {
-        registerUseCase.register(email, password).apply {
+        registerUseCase(email, password).apply {
             when (this) {
                 is TaskResult.Failure -> {
                     _registerResult.value = null
@@ -39,7 +39,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     suspend fun tryLoginWithGoogle(token : String) {
-        loginUseCase.loginWithGoogle(token).apply {
+        googleAuthUseCase(token).apply {
             when (this) {
                 is TaskResult.Failure -> {
                     _registerResult.value = null

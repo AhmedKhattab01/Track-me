@@ -86,6 +86,10 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        binding.tvForget.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }

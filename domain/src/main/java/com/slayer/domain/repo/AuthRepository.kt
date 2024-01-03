@@ -4,10 +4,9 @@ import com.slayer.domain.models.TaskResult
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
-    suspend fun login(email : String,password : String) : TaskResult<Any>
-
-    suspend fun loginWithGoogle(token : String) : TaskResult<Any>
-    suspend fun register(email : String,password : String) : TaskResult<Any>
-
-    fun logout() : Flow<TaskResult<Any>>
+    suspend fun login(email: String, password: String): TaskResult<Any>
+    suspend fun loginWithGoogle(token: String): TaskResult<Any>
+    suspend fun register(email: String, password: String): TaskResult<Any>
+    suspend fun forgetPassword(email: String): TaskResult<Any>
+    fun logout(): Flow<TaskResult<Any>>
 }
