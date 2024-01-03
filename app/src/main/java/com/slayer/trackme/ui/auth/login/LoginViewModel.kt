@@ -1,13 +1,13 @@
 package com.slayer.trackme.ui.auth.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.slayer.common.Constants
+import com.slayer.common.Utils.printToLog
 import com.slayer.domain.models.TaskResult
 import com.slayer.domain.usecases.auth_usecases.LoginUseCase
 import com.slayer.trackme.R
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -61,8 +61,8 @@ class LoginViewModel @Inject constructor(
             }
 
             else -> {
-                Log.e(TAG, "handleSignInWithEmailAndPasswordException: ${exception?.stackTraceToString()}")
-                R.string.something_went_wrong
+                exception?.stackTraceToString().printToLog()
+                R.string.something_went_wrong_auth
             }
         }
     }
@@ -86,7 +86,8 @@ class LoginViewModel @Inject constructor(
             }
 
             else -> {
-                R.string.something_went_wrong
+                exception.stackTraceToString().printToLog()
+                R.string.something_went_wrong_auth
             }
         }
     }

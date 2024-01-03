@@ -186,11 +186,11 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_google" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_already_have_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/don_t_have_account_sign_up"
+        android:text="@string/do_you_have_account_sign_in"
         app:layout_constraintStart_toStartOf="@+id/btn_register"
         app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 

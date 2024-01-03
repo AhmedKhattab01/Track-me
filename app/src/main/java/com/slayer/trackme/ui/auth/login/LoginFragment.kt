@@ -140,6 +140,11 @@ class LoginFragment : Fragment() {
                 val email = etEmail.text.toString().trim().lowercase()
                 val password = etPassword.text.toString().trim()
 
+                if (email.isEmpty()) {
+                    containerEmail.error =
+                        getString(R.string.email_address_is_required_please_enter_a_valid_email)
+                }
+
                 if (!ValidationUtil.isValidEmailAddress(email)) {
                     containerEmail.error = getString(R.string.invalid_email_address_please_enter_a_valid_email)
                     return@setOnClickListener

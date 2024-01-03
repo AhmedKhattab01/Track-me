@@ -8,7 +8,7 @@
     <string name="user_disabled">User Disabled</string>
     <string name="user_token_expired">User token expired</string>
     <string name="invalid_user_token">Invalid user token</string>
-    <string name="something_went_wrong">Something went wrong</string>
+    <string name="something_went_wrong_auth">An unexpected authentication error occurred. Please try again later or contact support.</string>
     <string name="add_your_tasks_and_to_dos_lists_and_organize_your_tasks">Add your tasks and to dos lists and organize your tasks</string>
     <string name="no_lists_yet">No lists yet</string>
     <string name="save">Save</string>
@@ -35,4 +35,9 @@
     <string name="confirm_password">Confirm password</string>
     <string name="register">Register</string>
     <string name="invalid_email_address_please_enter_a_valid_email">Invalid email address. Please enter a valid email.</string>
+    <string name="invalid_password_length">Password must be at least 6 characters long.</string>
+    <string name="password_mismatch">Passwords do not match. Please make sure they are identical.</string>
+    <string name="account_already_registered">An account with this email address already exists. Please sign in or use a different email address.</string>
+    <string name="email_address_is_required_please_enter_a_valid_email">Email address is required. Please enter a valid email.</string>
+    <string name="do_you_have_account_sign_in">Do you have account? Sign In</string>
 </resources>
