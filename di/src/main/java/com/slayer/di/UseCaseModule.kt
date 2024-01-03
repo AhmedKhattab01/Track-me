@@ -3,6 +3,7 @@ package com.slayer.di
 import com.slayer.domain.repo.AuthRepository
 import com.slayer.domain.repo.TasksRepository
 import com.slayer.domain.usecases.auth_usecases.LoginUseCase
+import com.slayer.domain.usecases.auth_usecases.RegisterUseCase
 import com.slayer.domain.usecases.tasks_usecases.DeleteTaskUseCase
 import com.slayer.domain.usecases.tasks_usecases.GetTasksUseCase
 import com.slayer.domain.usecases.tasks_usecases.InsertTaskUseCase
@@ -20,6 +21,12 @@ object UseCaseModule {
     @Singleton
     fun provideLoginUseCase(authRepository: AuthRepository): LoginUseCase {
         return LoginUseCase(authRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRegister(authRepository: AuthRepository): RegisterUseCase {
+        return RegisterUseCase(authRepository)
     }
 
     @Provides

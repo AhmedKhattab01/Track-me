@@ -1,5 +1,6 @@
 package com.slayer.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.slayer.data.local.dao.TaskDao
 import com.slayer.data.local.entities.TaskEntity
 import com.slayer.data.repo.AuthRepoImpl
@@ -8,7 +9,6 @@ import com.slayer.domain.DtoToDomain
 import com.slayer.domain.models.task.Task
 import com.slayer.domain.repo.AuthRepository
 import com.slayer.domain.repo.TasksRepository
-import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +17,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
-
+object  RepositoryModule {
     @Provides
     @Singleton
     fun provideTasksRepo(

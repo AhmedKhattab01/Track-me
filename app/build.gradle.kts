@@ -1,12 +1,11 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-kapt")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("androidx.navigation.safeargs.kotlin")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.google.service)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -64,9 +63,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
-    // Hilt
     implementation(libs.hilt.android)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
@@ -74,12 +72,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    implementation(libs.play.services.location)
-    implementation(libs.places)
-
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-auth")
-
     implementation(libs.play.services.auth)
 
     implementation(libs.colorpickerview)

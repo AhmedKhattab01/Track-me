@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.slayer.common.ValidationUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -68,17 +69,6 @@ class LoginFragment : Fragment() {
         initializeGoogleSignInClient()
     }
 
-    private fun initializeGoogleSignInClient() {
-        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
-    }
-
-    private fun initializeGso() {
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,8 +82,29 @@ class LoginFragment : Fragment() {
             googleSignInLauncher.launch(googleSignInClient.signInIntent)
         }
 
+        binding.tvCreateAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
+    }
+
+    private fun initializeGoogleSignInClient() {
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+    }
+
+    private fun initializeGso() {
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
     }
 
     private fun setupSignUpTextColor() {
@@ -120,7 +131,7 @@ class LoginFragment : Fragment() {
         )
 
         // Set the SpannableString to the TextView
-        binding.textView6.text = spannableString
+        binding.tvCreateAccount.text = spannableString
     }
 
     private fun handleLoginBtnClick() {
@@ -128,6 +139,11 @@ class LoginFragment : Fragment() {
             btnLogin.setOnClickListener {
                 val email = etEmail.text.toString().trim().lowercase()
                 val password = etPassword.text.toString().trim()
+
+                if (!ValidationUtil.isValidEmailAddress(email)) {
+                    containerEmail.error = getString(R.string.invalid_email_address_please_enter_a_valid_email)
+                    return@setOnClickListener
+                }
 
                 lifecycleScope.launch {
                     viewModel.tryLogin(email, password)
@@ -141,11 +157,5 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        _binding = null
     }
 }

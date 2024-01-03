@@ -7,6 +7,7 @@ interface AuthRepository {
     suspend fun login(email : String,password : String) : TaskResult<Any>
 
     suspend fun loginWithGoogle(token : String) : TaskResult<Any>
+    suspend fun register(email : String,password : String) : TaskResult<Any>
 
     fun logout() : Flow<TaskResult<Any>>
 }

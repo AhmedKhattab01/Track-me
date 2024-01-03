@@ -37,6 +37,16 @@ class AuthRepoImpl(private val firebaseAuth: FirebaseAuth) : AuthRepository {
         }
     }
 
+    override suspend fun register(email: String, password: String): TaskResult<AuthResult> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                TaskResult.Success(result)
+            } catch (e : Exception) {
+                TaskResult.Failure(e.message,-1,e)
+            }
+        }
+    }
 
     override fun logout() : Flow<TaskResult<Boolean>> {
         return callbackFlow {
