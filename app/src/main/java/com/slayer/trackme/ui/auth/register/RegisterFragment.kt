@@ -79,20 +79,24 @@ class RegisterFragment : Fragment() {
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
-        handleRegisterBtnClick()
         setupSignUpTextColor()
 
-        binding.tvAlreadyHaveAccount.setOnClickListener {
-            findNavController().navigateUp()
-        }
+        handleAlreadyHaveAccountClick()
+        handleGoogleBtnClick()
+        handleRegisterBtnClick()
 
-        binding.btnGoogle.setOnClickListener {
-            safeCall(requireContext()) {
-                viewModel.setLoadingValue(true)
-                googleSignInLauncher.launch(googleSignInClient.signInIntent)
-            }
-        }
+        observeLoadingState()
 
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun observeLoadingState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isLoading.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
                 binding.apply {
@@ -102,14 +106,21 @@ class RegisterFragment : Fragment() {
                 }
             }
         }
-
-        // Inflate the layout for this fragment
-        return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    private fun handleGoogleBtnClick() {
+        binding.btnGoogle.setOnClickListener {
+            safeCall(requireContext()) {
+                viewModel.setLoadingValue(true)
+                googleSignInLauncher.launch(googleSignInClient.signInIntent)
+            }
+        }
+    }
+
+    private fun handleAlreadyHaveAccountClick() {
+        binding.tvAlreadyHaveAccount.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun handleRegisterBtnClick() {
