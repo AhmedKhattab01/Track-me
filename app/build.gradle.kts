@@ -45,7 +45,6 @@ dependencies {
 
     implementation(project(":di"))
     implementation(project(":common"))
-    implementation(project(":common-ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

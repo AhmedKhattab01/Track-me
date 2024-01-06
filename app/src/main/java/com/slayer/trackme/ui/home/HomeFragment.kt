@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.slayer.trackme.Utils.visibleIf
+import com.slayer.trackme.common.Utils.visibleIf
 import com.slayer.trackme.R
 import com.slayer.trackme.TrackApplication
 import com.slayer.trackme.databinding.FragmentHomeBinding

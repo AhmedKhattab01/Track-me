@@ -1,4 +1,4 @@
-package com.slayer.trackme
+package com.slayer.trackme.common
 
 import android.app.Activity
 import android.content.Context
@@ -65,7 +65,7 @@ object Utils {
 
     private fun showNoInternetDialog(context: Context) {
         val dialogNoInternetBinding = DialogNoInternetBinding.inflate(LayoutInflater.from(context))
-        val dialog = com.slayer.trackme.ui.DefaultDialog(context,dialogNoInternetBinding.root)
+        val dialog = DefaultDialog(context,dialogNoInternetBinding.root)
         
         dialogNoInternetBinding.btnConfirm.setOnClickListener {
             dialog.dismiss()

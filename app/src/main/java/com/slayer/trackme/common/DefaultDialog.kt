@@ -1,4 +1,4 @@
-package com.slayer.trackme.ui
+package com.slayer.trackme.common
 
 import android.app.Dialog
 import android.content.Context
