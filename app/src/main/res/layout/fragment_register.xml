@@ -96,7 +96,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/wave" />
+            android:src="@drawable/claps" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView

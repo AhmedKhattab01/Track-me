@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.slayer.common.ValidationUtil
-import com.slayer.common_ui.Utils.safeCall
 import com.slayer.trackme.R
+import com.slayer.trackme.Utils.safeCall
+import com.slayer.trackme.databinding.DialogResetMailSentBinding
 import com.slayer.trackme.databinding.FragmentForgetPasswordBinding
+import com.slayer.trackme.ui.DefaultDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -51,19 +52,7 @@ class ForgetPasswordFragment : Fragment() {
                         viewModel.forgetPassword(email)
 
                         if (viewModel.forgetPasswordResult.value == true) {
-                            val alertDialog = AlertDialog.Builder(
-                                requireContext(),
-                                R.style.MyColorPickerDialogTheme
-                            )
-                                .setTitle("Password Reset Email Sent")
-                                .setMessage("An email has been sent to you for password reset. Please check your inbox.")
-                                .setPositiveButton("Dismiss") { _, _ ->
-                                    findNavController().navigateUp()
-                                }
-                                .setCancelable(false)
-                                .create()
-
-                            alertDialog.show()
+                            showConfirmDialog()
                         }
                         else {
                             containerEmail.error =
@@ -75,5 +64,19 @@ class ForgetPasswordFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun showConfirmDialog() {
+        val dialogResetMailSentBinding = DialogResetMailSentBinding.inflate(
+            LayoutInflater.from(requireContext())
+        )
+
+        val dialog = DefaultDialog(requireContext(), dialogResetMailSentBinding.root)
+        dialog.show()
+
+        dialogResetMailSentBinding.btnConfirm.setOnClickListener {
+            dialog.dismiss()
+            findNavController().navigateUp()
+        }
     }
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.slayer.common.Utils
-import com.slayer.common_ui.Utils.invisibleIf
+import com.slayer.trackme.Utils.invisibleIf
 import com.slayer.domain.models.task.Task
 import com.slayer.trackme.databinding.ItemRvListBinding
 import com.maltaisn.icondialog.pack.IconDrawableLoader

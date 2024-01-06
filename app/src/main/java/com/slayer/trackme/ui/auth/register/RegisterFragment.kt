@@ -21,9 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.slayer.common.ValidationUtil
-import com.slayer.common_ui.Utils
-import com.slayer.common_ui.Utils.safeCall
-import com.slayer.common_ui.Utils.toast
+import com.slayer.trackme.Utils.safeCall
+import com.slayer.trackme.Utils.toast
 import com.slayer.trackme.R
 import com.slayer.trackme.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -108,7 +107,7 @@ class RegisterFragment : Fragment() {
 
                 if (areValidFields(email, password, confirmPassword)) return@setOnClickListener
 
-                Utils.safeCall(requireContext()) {
+                safeCall(requireContext()) {
                     lifecycleScope.launch {
                         viewModel.tryRegister(email, password)
 

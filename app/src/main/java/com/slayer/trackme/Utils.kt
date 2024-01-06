@@ -1,14 +1,15 @@
-package com.slayer.common_ui
+package com.slayer.trackme
 
 import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.slayer.trackme.databinding.DialogNoInternetBinding
 
 object Utils {
     fun Fragment.toast(message: String) {
@@ -63,10 +64,13 @@ object Utils {
     }
 
     private fun showNoInternetDialog(context: Context) {
-        AlertDialog.Builder(context)
-            .setTitle("No Internet Connection")
-            .setMessage("Please check your internet connection and try again.")
-            .setPositiveButton("OK", null)
-            .show()
+        val dialogNoInternetBinding = DialogNoInternetBinding.inflate(LayoutInflater.from(context))
+        val dialog = com.slayer.trackme.ui.DefaultDialog(context,dialogNoInternetBinding.root)
+        
+        dialogNoInternetBinding.btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }
