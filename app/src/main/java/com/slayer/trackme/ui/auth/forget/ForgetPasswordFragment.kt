@@ -51,13 +51,7 @@ class ForgetPasswordFragment : Fragment() {
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewModel.forgetPassword(email)
 
-                        if (viewModel.forgetPasswordResult.value == true) {
-                            showConfirmDialog()
-                        }
-                        else {
-                            containerEmail.error =
-                                getString(viewModel.handleForgetPasswordExceptions())
-                        }
+                        showConfirmDialog()
                     }
                 }
             }
