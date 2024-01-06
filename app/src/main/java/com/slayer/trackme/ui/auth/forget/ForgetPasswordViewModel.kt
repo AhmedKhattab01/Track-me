@@ -1,4 +1,4 @@
-package com.slayer.trackme.ui.auth
+package com.slayer.trackme.ui.auth.forget
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidUserException

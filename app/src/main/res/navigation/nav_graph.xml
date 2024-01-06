@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.slayer.trackme.ui.auth.ForgetPasswordFragment"
+        android:name="com.slayer.trackme.ui.auth.forget.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" />
 </navigation>

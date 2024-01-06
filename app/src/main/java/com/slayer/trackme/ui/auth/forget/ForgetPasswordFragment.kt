@@ -1,4 +1,4 @@
-package com.slayer.trackme.ui.auth
+package com.slayer.trackme.ui.auth.forget
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -72,6 +72,7 @@ class ForgetPasswordFragment : Fragment() {
         )
 
         val dialog = DefaultDialog(requireContext(), dialogResetMailSentBinding.root)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
 
         dialogResetMailSentBinding.btnConfirm.setOnClickListener {
