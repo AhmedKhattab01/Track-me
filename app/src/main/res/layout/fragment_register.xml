@@ -117,7 +117,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/enter_your_credentials_to_access_your_account_and_unlock_a_world_of_personalized_experiences"
+        android:text="@string/create_your_account_now_to_unlock_personalized_experiences_set_up_your_credentials_and_join_a_world_of_possibilities"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="@+id/textView8"

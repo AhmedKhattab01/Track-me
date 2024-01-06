@@ -24,6 +24,13 @@ class RegisterViewModel @Inject constructor(
     private val _authErrorFlow = MutableStateFlow<Exception?>(null)
     private val authErrorFlow = _authErrorFlow.asStateFlow()
 
+    private val _isLoading = MutableStateFlow<Boolean>(false)
+    val isLoading = _isLoading.asStateFlow()
+
+    fun setLoadingValue(value : Boolean) {
+        _isLoading.value = value
+    }
+
     suspend fun tryRegister(email: String, password: String) {
         registerUseCase(email, password).apply {
             when (this) {

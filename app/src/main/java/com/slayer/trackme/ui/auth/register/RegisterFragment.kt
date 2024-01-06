@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -59,6 +60,8 @@ class RegisterFragment : Fragment() {
                     Log.e(TAG, "Google sign in failed", e)
                 }
             }
+
+            viewModel.setLoadingValue(false)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +88,18 @@ class RegisterFragment : Fragment() {
 
         binding.btnGoogle.setOnClickListener {
             safeCall(requireContext()) {
+                viewModel.setLoadingValue(true)
                 googleSignInLauncher.launch(googleSignInClient.signInIntent)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isLoading.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
+                binding.apply {
+                    btnRegister.isEnabled = !it
+                    btnGoogle.isEnabled = !it
+                    btnFacebook.isEnabled = !it
+                }
             }
         }
 
@@ -109,6 +123,7 @@ class RegisterFragment : Fragment() {
 
                 safeCall(requireContext()) {
                     lifecycleScope.launch {
+                        viewModel.setLoadingValue(true)
                         viewModel.tryRegister(email, password)
 
                         if (viewModel.registerResult.value?.user != null) {
@@ -117,6 +132,8 @@ class RegisterFragment : Fragment() {
                         else {
                             toast(viewModel.handleSignUpWithEmailAndPasswordException())
                         }
+
+                        viewModel.setLoadingValue(false)
                     }
                 }
             }

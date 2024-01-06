@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.slayer.trackme.Utils.toast
@@ -23,9 +24,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.slayer.common.Utils.printToLog
 import com.slayer.common.ValidationUtil
 import com.slayer.trackme.Utils.safeCall
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -56,9 +59,11 @@ class LoginFragment : Fragment() {
                         }
                     }
                 } catch (e: ApiException) {
-                    Log.e(TAG, "Google sign in failed", e)
+                    e.stackTraceToString().printToLog()
                 }
             }
+
+            viewModel.setLoadingValue(false)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,22 +81,14 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        observeLoadingState()
+
         setupSignUpTextColor()
+
         handleLoginBtnClick()
-
-        binding.btnGoogle.setOnClickListener {
-            safeCall(requireContext()) {
-                googleSignInLauncher.launch(googleSignInClient.signInIntent)
-            }
-        }
-
-        binding.tvCreateAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
-
-        binding.tvForget.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
-        }
+        handleGoogleBtnClick()
+        handleCreateAccountClick()
+        handleForgetPasswordClick()
 
         // Inflate the layout for this fragment
         return binding.root
@@ -101,6 +98,18 @@ class LoginFragment : Fragment() {
         super.onDestroy()
 
         _binding = null
+    }
+
+    private fun observeLoadingState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isLoading.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
+                binding.apply {
+                    btnLogin.isEnabled = !it
+                    btnGoogle.isEnabled = !it
+                    btnFacebook.isEnabled = !it
+                }
+            }
+        }
     }
 
     private fun initializeGoogleSignInClient() {
@@ -141,6 +150,27 @@ class LoginFragment : Fragment() {
         binding.tvCreateAccount.text = spannableString
     }
 
+    private fun handleGoogleBtnClick() {
+        binding.btnGoogle.setOnClickListener {
+            safeCall(requireContext()) {
+                viewModel.setLoadingValue(true)
+                googleSignInLauncher.launch(googleSignInClient.signInIntent)
+            }
+        }
+    }
+
+    private fun handleCreateAccountClick() {
+        binding.tvCreateAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+    }
+
+    private fun handleForgetPasswordClick() {
+        binding.tvForget.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+        }
+    }
+
     private fun handleLoginBtnClick() {
         binding.apply {
             btnLogin.setOnClickListener {
@@ -157,18 +187,26 @@ class LoginFragment : Fragment() {
                     return@setOnClickListener
                 }
 
+                tryLogin(email, password)
+            }
+        }
+    }
 
-                safeCall(requireContext()) {
-                    lifecycleScope.launch {
-                        viewModel.tryLogin(email, password)
+    private fun tryLogin(email: String, password: String) {
+        safeCall(requireContext()) {
+            lifecycleScope.launch {
+                viewModel.apply {
+                    setLoadingValue(true)
+                    tryLogin(email, password)
 
-                        if (viewModel.loginResult.value?.user != null) {
-                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                        }
-                        else {
-                            toast(viewModel.handleSignInWithEmailAndPasswordException())
-                        }
+                    if (loginResult.value?.user != null) {
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     }
+                    else {
+                        toast(handleSignInWithEmailAndPasswordException())
+                    }
+
+                    setLoadingValue(false)
                 }
             }
         }
