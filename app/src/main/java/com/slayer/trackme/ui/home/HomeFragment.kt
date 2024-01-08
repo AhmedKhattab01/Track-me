@@ -17,15 +17,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.slayer.trackme.common.Utils.visibleIf
-import com.slayer.trackme.R
-import com.slayer.trackme.TrackApplication
-import com.slayer.trackme.databinding.FragmentHomeBinding
-import com.slayer.trackme.ui.home.adapters.TaskAdapter
-import com.slayer.trackme.ui.home.tasks.TasksSortingSheet
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.maltaisn.icondialog.pack.IconPackLoader
+import com.slayer.trackme.R
+import com.slayer.trackme.TrackApplication
+import com.slayer.trackme.common.Utils.visibleIf
+import com.slayer.trackme.databinding.FragmentHomeBinding
+import com.slayer.trackme.ui.home.adapters.TaskAdapter
+import com.slayer.trackme.ui.home.tasks.TasksSortingSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,7 +65,7 @@ class HomeFragment : Fragment(), MenuProvider {
         binding.rvTasks.adapter = taskAdapter
 
         if (firebaseAuth.currentUser == null) {
-            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_onboarding)
         }
 
         handleTaskSwipe()

@@ -79,4 +79,6 @@ dependencies {
 
     implementation(libs.icondialog)
     implementation(libs.iconpack.community.material)
+
+    implementation(libs.dotsindicator)
 }

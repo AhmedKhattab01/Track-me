@@ -49,4 +49,14 @@
     <string name="please_check_your_internet_connection_and_try_again">Please check your internet connection and try again.</string>
     <string name="retrieve_access_to_your_account_enter_your_credentials_to_reset_your_password_and_unlock_personalized_experiences">Retrieve access to your account. Enter your credentials to reset your password and unlock personalized experiences.</string>
     <string name="create_your_account_now_to_unlock_personalized_experiences_set_up_your_credentials_and_join_a_world_of_possibilities">Create your account now to unlock personalized experiences. Set up your credentials and join a world of possibilities.</string>
+    <string name="skip">SKIP</string>
+    <string name="back">BACK</string>
+    <string name="next">NEXT</string>
+    <string name="manage_your_tasks">Manage your tasks</string>
+    <string name="you_can_easily_manage_all_of_your_daily_tasks">You can easily manage all of your daily tasks.</string>
+    <string name="create_daily_routine">Create daily routine</string>
+    <string name="you_can_create_your_personalized_routine_to_stay_productive">You can create your personalized routine to stay productive</string>
+    <string name="organize_your_tasks">Organize your tasks</string>
+    <string name="you_can_organize_your_daily_tasks_by_adding_your_tasks_into_separate_categories">You can organize your daily tasks by adding your tasks into separate categories</string>
+    <string name="get_started">GET STARTED</string>
 </resources>

@@ -1,6 +1,7 @@
 [versions]
 # Plugins
 androidGradlePlugin = "8.2.1"
+dotsindicator = "5.0"
 kotlinAndroid = "1.9.22"
 androidLibrary = "8.2.1"
 kspVersion = "1.9.22-1.0.16"
@@ -49,6 +50,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 colorpickerview = { module = "com.github.skydoves:colorpickerview", version.ref = "colorpickerview" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
 facebook-login = { module = "com.facebook.android:facebook-login", version.ref = "facebook-login" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebase-analytics" }
 firebase-common-ktx = { module = "com.google.firebase:firebase-common-ktx", version.ref = "firebase-common-ktx" }
