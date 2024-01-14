@@ -2,22 +2,15 @@ package com.slayer.trackme.ui.auth.login
 
 import android.app.Activity
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.slayer.trackme.common.Utils.toast
-import com.slayer.trackme.R
-import com.slayer.trackme.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -25,7 +18,11 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.slayer.common.Utils.printToLog
 import com.slayer.common.ValidationUtil
-import com.slayer.trackme.common.Utils.safeCall
+import com.slayer.trackme.R
+import com.slayer.trackme.common.createSpannableString
+import com.slayer.trackme.common.safeCall
+import com.slayer.trackme.common.toast
+import com.slayer.trackme.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -122,30 +119,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupSignUpTextColor() {
-        val fullText = getString(R.string.don_t_have_account_sign_up)
-
-        // Locate the position of the specific word you want to highlight
-        val startIndex = 20
-        val endIndex = startIndex + 7
-
-        // Create a SpannableString
-        val spannableString = SpannableString(fullText)
-
-        // Apply a different color to the specific word
-        spannableString.setSpan(
-            ForegroundColorSpan(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.md_theme_light_primary
-                )
-            ),
-            startIndex,
-            endIndex,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        binding.tvCreateAccount.text = createSpannableString(
+            start = 20,
+            end = 27,
+            text = getString(R.string.don_t_have_account_sign_up),
+            context = requireContext()
         )
-
-        // Set the SpannableString to the TextView
-        binding.tvCreateAccount.text = spannableString
     }
 
     private fun handleGoogleBtnClick() {
@@ -181,7 +160,8 @@ class LoginFragment : Fragment() {
                 }
 
                 if (!ValidationUtil.isValidEmailAddress(email)) {
-                    containerEmail.error = getString(R.string.invalid_email_address_please_enter_a_valid_email)
+                    containerEmail.error =
+                        getString(R.string.invalid_email_address_please_enter_a_valid_email)
                     return@setOnClickListener
                 }
 

@@ -11,10 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.slayer.common.ValidationUtil
 import com.slayer.trackme.R
-import com.slayer.trackme.common.Utils.safeCall
+import com.slayer.trackme.common.DefaultDialog
+import com.slayer.trackme.common.safeCall
 import com.slayer.trackme.databinding.DialogResetMailSentBinding
 import com.slayer.trackme.databinding.FragmentForgetPasswordBinding
-import com.slayer.trackme.common.DefaultDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.maltaisn.icondialog.pack.IconPackLoader
 import com.slayer.trackme.R
 import com.slayer.trackme.TrackApplication
-import com.slayer.trackme.common.Utils.visibleIf
+import com.slayer.trackme.common.visibleIf
 import com.slayer.trackme.databinding.FragmentHomeBinding
 import com.slayer.trackme.ui.home.adapters.TaskAdapter
 import com.slayer.trackme.ui.home.tasks.TasksSortingSheet

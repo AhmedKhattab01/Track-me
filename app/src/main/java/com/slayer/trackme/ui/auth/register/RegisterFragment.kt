@@ -22,9 +22,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.slayer.common.ValidationUtil
-import com.slayer.trackme.common.Utils.safeCall
-import com.slayer.trackme.common.Utils.toast
 import com.slayer.trackme.R
+import com.slayer.trackme.common.createSpannableString
+import com.slayer.trackme.common.safeCall
+import com.slayer.trackme.common.toast
 import com.slayer.trackme.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -177,30 +178,12 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setupSignUpTextColor() {
-        val fullText = getString(R.string.do_you_have_account_sign_in)
-
-        // Locate the position of the specific word you want to highlight
-        val startIndex = 20
-        val endIndex = startIndex + 8
-
-        // Create a SpannableString
-        val spannableString = SpannableString(fullText)
-
-        // Apply a different color to the specific word
-        spannableString.setSpan(
-            ForegroundColorSpan(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.md_theme_light_primary
-                )
-            ),
-            startIndex,
-            endIndex,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        binding.tvAlreadyHaveAccount.text = createSpannableString(
+            20,
+            28,
+            getString(R.string.do_you_have_account_sign_in),
+            requireContext()
         )
-
-        // Set the SpannableString to the TextView
-        binding.tvAlreadyHaveAccount.text = spannableString
     }
 
     private fun initializeGoogleSignInClient() {

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.slayer.trackme.R
-import com.slayer.trackme.common.Utils.visibleIf
+import com.slayer.trackme.common.visibleIf
 import com.slayer.trackme.databinding.FragmentOnboardingBinding
 import com.slayer.trackme.ui.onboarding.first.FirstOnboardingFragment
 import com.slayer.trackme.ui.onboarding.second.SecondOnboardingFragment

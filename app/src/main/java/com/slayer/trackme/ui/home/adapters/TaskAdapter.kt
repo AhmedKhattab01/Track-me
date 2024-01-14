@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.slayer.common.Utils
-import com.slayer.trackme.common.Utils.invisibleIf
-import com.slayer.domain.models.task.Task
-import com.slayer.trackme.databinding.ItemRvListBinding
 import com.maltaisn.icondialog.pack.IconDrawableLoader
 import com.maltaisn.icondialog.pack.IconPack
+import com.slayer.common.Utils
+import com.slayer.domain.models.task.Task
+import com.slayer.trackme.common.invisibleIf
+import com.slayer.trackme.databinding.ItemRvListBinding
 
 class TaskAdapter(private val drawableLoader: IconDrawableLoader,private val iconPack: IconPack) : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(TaskDiffer()) {
     inner class TaskListViewHolder(private val binding: ItemRvListBinding) :

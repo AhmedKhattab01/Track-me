@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.slayer.trackme.common.Utils.visibleIf
 import com.slayer.trackme.R
+import com.slayer.trackme.common.visibleIf
 import com.slayer.trackme.databinding.ActivityMainBinding
 import com.slayer.trackme.ui.home.tasks.TaskAddSheet
 import dagger.hilt.android.AndroidEntryPoint
