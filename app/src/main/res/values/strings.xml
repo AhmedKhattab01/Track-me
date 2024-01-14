@@ -59,4 +59,6 @@
     <string name="organize_your_tasks">Organize your tasks</string>
     <string name="you_can_organize_your_daily_tasks_by_adding_your_tasks_into_separate_categories">You can organize your daily tasks by adding your tasks into separate categories</string>
     <string name="get_started">GET STARTED</string>
+    <string name="welcome_to_track_me">Welcome to Track me</string>
+    <string name="please_login_to_your_account_or_create_new_account_to_continue">Please login to your account or create new account to continue</string>
 </resources>
