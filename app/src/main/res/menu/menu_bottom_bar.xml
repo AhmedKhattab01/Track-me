@@ -2,14 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_list_sort1"
-        android:icon="@drawable/baseline_filter_alt_24"
-        android:title="Sort"
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/home"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/menu_sorting"
-        android:icon="@drawable/baseline_sort_24"
-        android:title="Sort"
+        android:id="@+id/calendarFragment"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="@string/calendar"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/divider"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/focusFragment"
+        android:icon="@drawable/baseline_av_timer_24"
+        android:title="@string/focus"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/baseline_person_outline_24"
+        android:title="@string/profile"
         app:showAsAction="ifRoom" />
 </menu>

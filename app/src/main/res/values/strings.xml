@@ -61,4 +61,8 @@
     <string name="get_started">GET STARTED</string>
     <string name="welcome_to_track_me">Welcome to Track me</string>
     <string name="please_login_to_your_account_or_create_new_account_to_continue">Please login to your account or create new account to continue</string>
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="focus">Focus</string>
+    <string name="profile">Profile</string>
 </resources>

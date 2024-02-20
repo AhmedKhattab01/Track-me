@@ -39,6 +39,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomAppBar.setupWithNavController(navController)
 
+        binding.bottomNav.background = null
+        binding.bottomNav.backgroundTintList = null
+
         binding.fab.setOnClickListener {
             when (navController.currentDestination?.id) {
                 R.id.homeFragment -> {
