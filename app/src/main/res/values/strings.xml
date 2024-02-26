@@ -65,4 +65,6 @@
     <string name="calendar">Calendar</string>
     <string name="focus">Focus</string>
     <string name="profile">Profile</string>
+    <string name="today">Today</string>
+    <string name="completed">Completed</string>
 </resources>

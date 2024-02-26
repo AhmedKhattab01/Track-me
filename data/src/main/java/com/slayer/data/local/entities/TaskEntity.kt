@@ -7,9 +7,10 @@ import androidx.room.PrimaryKey
 data class TaskEntity(
     @PrimaryKey(true)
     val id : Int,
-    val taskName : String,
-    val taskColorHex : String = "#000000",
-    val creationTimeStamp : Long = System.currentTimeMillis(),
-    val totalSubTasks : Int = 0,
-    val taskIconId : Int? = null
+    val title : String,
+    val description : String,
+    val categoryID : Int,
+    val dueDate : Long,
+    val priority : Int,
+    val isCompleted : Boolean
 )

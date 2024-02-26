@@ -1,40 +1,23 @@
 package com.slayer.trackme.ui.home.adapters
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.maltaisn.icondialog.pack.IconDrawableLoader
-import com.maltaisn.icondialog.pack.IconPack
-import com.slayer.common.Utils
 import com.slayer.domain.models.task.Task
-import com.slayer.trackme.common.invisibleIf
 import com.slayer.trackme.databinding.ItemRvListBinding
 
-class TaskAdapter(private val drawableLoader: IconDrawableLoader,private val iconPack: IconPack) : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(TaskDiffer()) {
+class TaskAdapter() : ListAdapter<Task, TaskAdapter.TaskListViewHolder>(TaskDiffer()) {
     inner class TaskListViewHolder(private val binding: ItemRvListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task) {
             binding.apply {
-                tvName.text = item.taskName
-                tvDate.text = Utils.convertTimestampToFriendlyDate(item.creationTimeStamp)
+                tvTitle.text = item.title
+                tvDueDate.text = item.dueDate.toString()
 
-                ivIcon.setColorFilter(Color.parseColor(item.taskColorHex))
+                btnPriority.text = item.priority.toString()
 
-                item.taskIconId?.let {
-                    ivIcon.setImageDrawable(
-                        iconPack.getIconDrawable(it, drawableLoader)
-                    )
-                }
-
-                progressBar.progressTintList =
-                    ColorStateList.valueOf(Color.parseColor(item.taskColorHex))
-
-                progressBar.invisibleIf(item.totalSubTasks <= 0)
-                tvProgress.invisibleIf(item.totalSubTasks <= 0)
-                tvCompletedTasks.invisibleIf(item.totalSubTasks <= 0)
+                cbCompleted.isChecked = item.isCompleted
             }
         }
     }

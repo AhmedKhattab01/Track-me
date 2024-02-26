@@ -37,22 +37,32 @@
         app:layout_constraintTop_toBottomOf="@+id/container_task_name" />
 
     <ImageButton
-        android:id="@+id/btn_icon"
+        android:id="@+id/btn_due_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/baseline_tag_faces_24"
+        android:src="@drawable/outline_timer_24"
         app:layout_constraintStart_toStartOf="@+id/container_task_name"
         app:layout_constraintTop_toBottomOf="@+id/container_task_name"
         app:tint="@color/md_theme_light_primary" />
 
     <ImageButton
-        android:id="@+id/btn_color"
+        android:id="@+id/btn_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/baseline_color_lens_24"
-        app:layout_constraintStart_toEndOf="@+id/btn_icon"
+        android:src="@drawable/outline_label_24"
+        app:layout_constraintStart_toEndOf="@+id/btn_due_date"
+        app:layout_constraintTop_toBottomOf="@+id/container_task_name"
+        app:tint="@color/md_theme_light_primary" />
+
+    <ImageButton
+        android:id="@+id/btn_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/baseline_outlined_flag_24"
+        app:layout_constraintStart_toEndOf="@+id/btn_category"
         app:layout_constraintTop_toBottomOf="@+id/container_task_name"
         app:tint="@color/md_theme_light_primary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

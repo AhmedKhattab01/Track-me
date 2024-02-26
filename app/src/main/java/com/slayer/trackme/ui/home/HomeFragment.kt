@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -15,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.maltaisn.icondialog.pack.IconPackLoader
 import com.slayer.trackme.R
-import com.slayer.trackme.TrackApplication
+import com.slayer.trackme.common.goneIf
 import com.slayer.trackme.common.visibleIf
 import com.slayer.trackme.databinding.FragmentHomeBinding
 import com.slayer.trackme.ui.home.adapters.TaskAdapter
@@ -35,12 +36,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels(ownerProducer = { this })
     private val loader by lazy { IconPackLoader(requireContext()) }
 
-    private val taskAdapter by lazy {
-        TaskAdapter(
-            loader.drawableLoader,
-            (requireActivity().application as TrackApplication).iconPack
-        )
-    }
+    private val taskAdapter = TaskAdapter()
 
     private val dialog by lazy { TasksSortingSheet() }
 
@@ -57,6 +53,15 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.rvTasks.adapter = taskAdapter
+        binding.rvCompletedTasks.adapter = taskAdapter
+
+        binding.btnToday.setOnClickListener {
+            binding.rvTasks.goneIf(binding.rvTasks.isVisible)
+        }
+
+        binding.btnCompleted.setOnClickListener {
+            binding.rvCompletedTasks.goneIf(binding.rvCompletedTasks.isVisible)
+        }
 
         if (firebaseAuth.currentUser == null) {
             findNavController().navigate(R.id.action_homeFragment_to_onboarding)

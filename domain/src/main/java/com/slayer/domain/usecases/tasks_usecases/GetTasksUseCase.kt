@@ -4,8 +4,8 @@ import com.slayer.domain.repo.TasksRepository
 
 class GetTasksUseCase (private val tasksRepository: TasksRepository) {
     fun getAllTasks() = tasksRepository.getAllTasks()
-    fun getAllTaskAsc() = tasksRepository.getAllTaskAsc()
-    fun getAllTasksDesc() = tasksRepository.getAllTasksDesc()
-    fun getAllTasksNewest() = tasksRepository.getAllTasksNewest()
-    fun getAllTasksOldest() = tasksRepository.getAllTasksOldest()
+//    fun getAllTaskAsc() = tasksRepository.getAllTaskAsc()
+//    fun getAllTasksDesc() = tasksRepository.getAllTasksDesc()
+//    fun getAllTasksNewest() = tasksRepository.getAllTasksNewest()
+//    fun getAllTasksOldest() = tasksRepository.getAllTasksOldest()
 }

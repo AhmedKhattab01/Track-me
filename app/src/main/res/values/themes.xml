@@ -33,6 +33,5 @@
 
     <style name="defaultBtn" parent="Widget.Material3.Button">
         <item name="cornerRadius">14dp</item>
-        <item name="android:padding">16dp</item>
     </style>
 </resources>

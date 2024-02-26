@@ -2,10 +2,11 @@ package com.slayer.domain.models.task
 
 
 data class Task(
-    val id : Int = 0,
-    val taskName : String,
-    val taskColorHex : String = "#000000",
-    val creationTimeStamp : Long = System.currentTimeMillis(),
-    val totalSubTasks : Int = 0,
-    val taskIconId : Int? = null
+    val id : Int,
+    val title : String,
+    val description : String,
+    val categoryID : Int,
+    val dueDate : Long,
+    val priority : Int,
+    val isCompleted : Boolean
 )

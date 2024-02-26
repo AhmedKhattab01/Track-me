@@ -16,17 +16,17 @@ class TasksRepoImpl(
     override fun getAllTasks(): Flow<List<Task>> =
         taskDao.getAllTasks().map { tasksEntitiesToTask.map(it) }
 
-    override fun getAllTaskAsc(): Flow<List<Task>> =
-        taskDao.getAllTasksAsc().map { tasksEntitiesToTask.map(it) }
-
-    override fun getAllTasksDesc(): Flow<List<Task>> =
-        taskDao.getAllTasksDesc().map { tasksEntitiesToTask.map(it) }
-
-    override fun getAllTasksNewest(): Flow<List<Task>> =
-        taskDao.getAllTasksNewest().map { tasksEntitiesToTask.map(it) }
-
-    override fun getAllTasksOldest(): Flow<List<Task>> =
-        taskDao.getAllTasksOldest().map { tasksEntitiesToTask.map(it) }
+//    override fun getAllTaskAsc(): Flow<List<Task>> =
+//        taskDao.getAllTasksAsc().map { tasksEntitiesToTask.map(it) }
+//
+//    override fun getAllTasksDesc(): Flow<List<Task>> =
+//        taskDao.getAllTasksDesc().map { tasksEntitiesToTask.map(it) }
+//
+//    override fun getAllTasksNewest(): Flow<List<Task>> =
+//        taskDao.getAllTasksNewest().map { tasksEntitiesToTask.map(it) }
+//
+//    override fun getAllTasksOldest(): Flow<List<Task>> =
+//        taskDao.getAllTasksOldest().map { tasksEntitiesToTask.map(it) }
 
     override suspend fun deleteAllTasks() = taskDao.deleteAllLists()
 

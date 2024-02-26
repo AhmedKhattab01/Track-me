@@ -42,29 +42,29 @@ class HomeViewModel @Inject constructor(
                     }
                 }
 
-                Constants.ASCENDING -> {
-                    getTasksUseCase.getAllTaskAsc().collect {
-                        _tasks.value = it
-                    }
-                }
-
-                Constants.DESCENDING -> {
-                    getTasksUseCase.getAllTasksDesc().collect {
-                        _tasks.value = it
-                    }
-                }
-
-                Constants.OLDEST -> {
-                    getTasksUseCase.getAllTasksOldest().collect {
-                        _tasks.value = it
-                    }
-                }
-
-                Constants.NEWEST -> {
-                    getTasksUseCase.getAllTasksNewest().collect {
-                        _tasks.value = it
-                    }
-                }
+//                Constants.ASCENDING -> {
+//                    getTasksUseCase.getAllTaskAsc().collect {
+//                        _tasks.value = it
+//                    }
+//                }
+//
+//                Constants.DESCENDING -> {
+//                    getTasksUseCase.getAllTasksDesc().collect {
+//                        _tasks.value = it
+//                    }
+//                }
+//
+//                Constants.OLDEST -> {
+//                    getTasksUseCase.getAllTasksOldest().collect {
+//                        _tasks.value = it
+//                    }
+//                }
+//
+//                Constants.NEWEST -> {
+//                    getTasksUseCase.getAllTasksNewest().collect {
+//                        _tasks.value = it
+//                    }
+//                }
             }
         }
     }

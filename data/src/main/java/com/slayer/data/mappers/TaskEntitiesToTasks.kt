@@ -9,11 +9,12 @@ class TaskEntitiesToTasks : DtoToDomain<List<TaskEntity>, List<Task>> {
         return from.map {
             Task(
                 id = it.id,
-                taskName = it.taskName,
-                creationTimeStamp = it.creationTimeStamp,
-                taskColorHex = it.taskColorHex,
-                totalSubTasks = it.totalSubTasks,
-                taskIconId = it.taskIconId
+                title = it.title,
+                categoryID = it.categoryID,
+                description = it.description,
+                dueDate = it.dueDate,
+                priority = it.priority,
+                isCompleted = it.isCompleted
             )
         }
     }
